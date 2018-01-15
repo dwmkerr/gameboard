@@ -27,4 +27,5 @@ cat ./android/app/build.gradle.tmp | sed -E "s/versionCode [0-9]+$/versionCode $
 rm ./android/app/build.gradle.tmp
 
 # We might want to make this optional for prod!
-./node_modules/.bin/app-icon generate -t alpha -b "${version} (${BUILD_NUM})"
+./node_modules/.bin/app-icon label -i icon.png -o icon.labelled.png -t alpha -b "${version} (${BUILD_NUM})"
+./node_modules/.bin/app-icon generate -i icon.labelled.png
