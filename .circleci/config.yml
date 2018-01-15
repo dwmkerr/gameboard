@@ -25,6 +25,7 @@ jobs:
           path: ~/project
       - attach_workspace:
           at: ~/project
+      - run: brew install imagemagick
       - run: BUILD_NUM=$CIRCLE_BUILD_NUM ./scripts/version.sh
       - run: bundle install
       - run: bundle exec fastlane android build
