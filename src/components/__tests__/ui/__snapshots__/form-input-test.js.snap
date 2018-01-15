@@ -55,6 +55,7 @@ exports[`FormInput renders correctly 1`] = `
         }
       }
       underlineColorAndroid="rgba(0,0,0,0)"
+      value="John Smith"
       virtual={undefined}
     />
   </View>
