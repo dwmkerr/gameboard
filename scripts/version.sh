@@ -25,3 +25,6 @@ cat ./android/app/build.gradle | sed -E "s/versionName .*$/versionName \"${versi
 # Set the build number.
 cat ./android/app/build.gradle.tmp | sed -E "s/versionCode [0-9]+$/versionCode ${BUILD_NUM}/" > ./android/app/build.gradle
 rm ./android/app/build.gradle.tmp
+
+# We might want to make this optional for prod!
+app-icon generate --label -t alpha -b "${version} (${BUILD_NUM})"

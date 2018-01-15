@@ -74,7 +74,7 @@ jobs:
           path: /Users/distiller/project/output/scan
 
   # Pushes the built app artifacts to testfairy.
-  release-testfairy:
+  release-alpha:
     working_directory: ~/project
     docker:
       - image: circleci/node:8
@@ -97,13 +97,20 @@ workflows:
       - ios:
           requires:
             - build
-      - release-testfairy:
+      - release-alpha:
           requires:
             - ios
             - android
           filters:
-            tags:
-              # We release to testfairy if we have any new semver tag.
-              only: /^[v]?\d+.\d+.\d+/
             branches:
-              ignore: /.*/
+              only: master
+      # - release-beta:
+          # requires:
+            # - ios
+            # - android
+          # filters:
+            # tags:
+              # # We release to testfairy if we have any new semver tag.
+              # only: /^[v]?\d+.\d+.\d+/
+            # branches:
+              # ignore: /.*/
