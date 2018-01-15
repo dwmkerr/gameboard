@@ -3,6 +3,7 @@ package com.gameboard;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.testfairy.react.TestFairyPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new TestFairyPackage(),
             new VectorIconsPackage(),
             new RNGoogleSigninPackage(),
             new GoogleAnalyticsBridgePackage()

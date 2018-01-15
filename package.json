@@ -33,6 +33,7 @@
     "react-native-router-flux": "^4.0.0-beta.25",
     "react-native-side-menu": "^1.1.3",
     "react-native-tab-view": "0.0.67",
+    "react-native-testfairy": "^2.6.0",
     "react-redux": "^5.0.1",
     "redux": "^3.6.0",
     "redux-form": "^7.2.0",
