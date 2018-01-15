@@ -3,11 +3,11 @@
 # Get the version from the package.json.
 version=$(cat package.json | grep version | cut -d'"' -f4)
 
-# Get the current version and current build.
-currentVersion=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" ./ios/GameBoard/Info.plist)
-currentBuild=$(/usr/libexec/PlistBuddy -c "Print CFBundleVersion" ./ios/GameBoard/Info.plist)
-
 if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Get the current version and current build.
+    currentVersion=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" ./ios/GameBoard/Info.plist)
+    currentBuild=$(/usr/libexec/PlistBuddy -c "Print CFBundleVersion" ./ios/GameBoard/Info.plist)
+
     # Set the bundle version.
     echo "Updating version '${currentVersion}' to '${version}'..."
     /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${version}" ./ios/GameBoard/Info.plist
