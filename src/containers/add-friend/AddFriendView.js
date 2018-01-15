@@ -48,16 +48,17 @@ class AddFriend extends Component {
       <Spacer size={20} />
       <Field
         name="name"
-        placeHolder="Name"
+        placeholder="Name"
         label="Name"
         component={FormInput}
         autoFocus
       />
       <Field
         name="email"
-        placeHolder="E-Mail"
+        placeholder="E-Mail"
         label="E-Mail"
         keyboardType="email-address"
+        autoCapitalize="none"
         component={FormInput}
       />
     </WizardPage>

@@ -6,13 +6,12 @@ import { Icon, Item, Label, Input, Text } from 'native-base';
 const FormInput = (props) => {
   const {
     input,
-    autoFocus,
-    placeHolder,
     label,
     meta: {
       touched,
       error,
     },
+    ...other
   } = props;
   const showError = touched && !!error;
 
@@ -27,7 +26,7 @@ const FormInput = (props) => {
     <View>
       {label ? <Label>{label}</Label> : null}
       <Item error={showError} regular>
-        <Input {...input} placeHolder={placeHolder} autoFocus={autoFocus} />
+        <Input {...input} {...other} />
         {showError && renderError()}
       </Item>
     </View>
