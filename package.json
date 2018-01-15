@@ -43,6 +43,7 @@
     "tcomb-form-native": "^0.6.11"
   },
   "devDependencies": {
+    "app-icon": "^0.6.3",
     "babel-core": "^6.17.0",
     "babel-eslint": "^8.1.2",
     "babel-jest": "20.0.3",
