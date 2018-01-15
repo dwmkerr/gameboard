@@ -12,7 +12,7 @@ TESTER_GROUPS=
 NOTIFY="on"
 
 # If AUTO_UPDATE is "on" all users will be prompt to update to this build next time they run the app
-AUTO_UPDATE="off"
+AUTO_UPDATE="on"
 
 # The maximum recording duration for every test. 
 MAX_DURATION="10m"
