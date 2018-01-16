@@ -55,3 +55,4 @@ artifacts
 ./fastlane/Preview.html
 ./fastlane/screenshots
 fastlane/report.xml
+icon.labelled.png
