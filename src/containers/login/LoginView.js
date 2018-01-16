@@ -19,6 +19,7 @@ import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
 
 // Consts and Libs
 import { AppStyles, AppSizes, AppColors } from '@theme/';
+import log from '@lib/log';
 
 /* Styles ==================================================================== */
 const styles = StyleSheet.create({
@@ -89,8 +90,14 @@ class Login extends Component {
       Actions.home({ type: 'reset' });
       return;
     } catch (err) {
-      console.log('Sign in error', err.code, err.message);
-      throw err;
+      if (err.code === -5) {
+        //  User cancelled the sign in flow, e.g. by dismissing the browser
+        //  during the OAuth flow. We don't consider this to be an error.
+      } else {
+        //  Uh-oh, unknown error during sign in...
+        log.error('Unknown error during sign in', err);
+        throw err;
+      }
     }
   }
 

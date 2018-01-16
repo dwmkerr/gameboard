@@ -84,19 +84,19 @@ class GameStats extends Component {
           <Spacer size={20} />
           <H2>Wins</H2>
           {this.renderStat({ name: 'Played', value: stats.played })}
-          {this.renderStat({ name: 'Won', value: 2 })}
-          {this.renderStat({ name: 'Longest Streak', value: 2 })}
+          {this.renderStat({ name: 'Won', value: stats.won })}
+          {this.renderStat({ name: 'Longest Streak', value: stats.longestStreak })}
           <Spacer size={20} />
 
           <H2>Score</H2>
-          {this.renderStat({ name: 'Best', value: 5 })}
-          {this.renderStat({ name: 'Average', value: 2 })}
+          {this.renderStat({ name: 'Best', value: stats.bestScore })}
+          {this.renderStat({ name: 'Average', value: stats.averageScore })}
           <Spacer size={20} />
 
           <H2>Nemesis</H2>
-          {this.renderStat({ name: 'Beaten most by', value: 'Sarah' })}
-          {this.renderStat({ name: 'Beaten by Sarah', value: '4 times' })}
-          {this.renderStat({ name: 'Beat Sarah', value: '2 times' })}
+          {this.renderStat({ name: 'Beaten most by', value: stats.nemesisName })}
+          {this.renderStat({ name: 'Beaten by Sarah', value: stats.nemesisWins })}
+          {this.renderStat({ name: 'Beat Sarah', value: stats.nemesisBeat })}
           <Spacer size={20} />
           <Spacer size={20} />
         </WizardPage>
