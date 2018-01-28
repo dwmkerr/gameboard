@@ -25,4 +25,15 @@ export const watchHistory = () => (dispatch) => {
     });
 };
 
-export function noop() {}
+export const deleteGame = (key) => {
+  //  Now watch all of the played games for that game.
+  firebase.database()
+    .ref('played-games')
+    .child(key)
+    .remove();
+
+  return {
+    type: 'HISTORY_DELETE_GAME',
+    data: key,
+  };
+};

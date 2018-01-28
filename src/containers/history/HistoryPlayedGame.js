@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
+  Alert,
   StyleSheet,
   View,
 } from 'react-native';
@@ -9,6 +10,7 @@ import {
   Button,
   Content,
   H1,
+  Icon,
   List,
   ListItem,
   Right,
@@ -31,11 +33,29 @@ class HistoryPlayedGame extends Component {
   static componentName = 'HistoryPlayedGame';
 
   static propTypes = {
+    enableDelete: PropTypes.bool.isRequired,
     playedGame: PropTypes.shape({}).isRequired,
     gameStatsSetGame: PropTypes.func.isRequired,
+    historyDeleteGame: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
+  }
+
+  deleteGame = (key) => {
+    const del = () => {
+      this.props.historyDeleteGame(key);
+      Actions.pop();
+    };
+
+    Alert.alert(
+      'Delete Game',
+      'Are you sure you want to delete this game?',
+      [
+        { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+        { text: 'OK', onPress: del },
+      ],
+    );
   }
 
   gameStats = (game) => {
@@ -45,8 +65,10 @@ class HistoryPlayedGame extends Component {
 
   render = () => {
     const {
+      enableDelete,
       playedGame: {
         game,
+        key,
         createdAt,
         players,
       },
@@ -91,6 +113,13 @@ class HistoryPlayedGame extends Component {
           <Button onPress={() => this.gameStats(game)}>
             <Text>{game} Stats</Text>
           </Button>
+          <Spacer size={30} />
+          { enableDelete &&
+              <Button iconLeft danger onPress={() => this.deleteGame(key)}>
+                <Icon name="trash" />
+                <Text>Delete</Text>
+              </Button>
+          }
         </List>
       </Content>
     );

@@ -26,6 +26,7 @@ jobs:
       - attach_workspace:
           at: ~/project
       - run: sudo apt-get install -y imagemagick
+      - run: npm install
       - run: BUILD_NUM=$CIRCLE_BUILD_NUM ./scripts/version.sh
       - run: bundle install
       - run: bundle exec fastlane android build

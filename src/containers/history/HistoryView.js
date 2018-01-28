@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import firebase from 'react-native-firebase';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
@@ -25,13 +26,21 @@ class History extends Component {
   static propTypes = {
     history: PropTypes.shape({}).isRequired,
     gameStatsSetGame: PropTypes.func.isRequired,
+    historyDeleteGame: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
   }
 
   render = () => {
-    const { history, gameStatsSetGame } = this.props;
+    //  Get the current user id, users can only delete games they have scored.
+    const { uid } = firebase.auth().currentUser;
+
+    const {
+      history,
+      gameStatsSetGame,
+      historyDeleteGame,
+    } = this.props;
     (() => {})(history);
 
     return (
@@ -42,8 +51,10 @@ class History extends Component {
               key={pg.key}
               button
               onPress={() => Actions.HistoryPlayedGame({
+                enableDelete: pg.scorerUid === uid,
                 playedGame: pg,
                 gameStatsSetGame,
+                historyDeleteGame,
               })}
               icon
             >
