@@ -90,6 +90,7 @@ jobs:
           path: ~/project
       - attach_workspace:
           at: ~/project
+      - run: make release
       - run: make upload-alpha
 
 workflows:
@@ -103,6 +104,10 @@ workflows:
       - ios:
           requires:
             - build
+      - release:
+          requires:
+            - ios
+            - android
       - release-alpha:
           requires:
             - ios

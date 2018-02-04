@@ -12,4 +12,9 @@ upload-alpha:
 	./scripts/testfairy-upload.sh ./artifacts/ios/GameBoard.ipa
 	./scripts/upload-dsym.sh -f ${TESTFAIRY_API_KEY} -p ./artifacts/ios
 
+# Runs semantic release.
+release:
+	npx semantic-release
+
+
 .PHONY: ios android
