@@ -45,6 +45,9 @@ jobs:
       - run: npm install
       - run: BUILD_NUM=$CIRCLE_BUILD_NUM ./scripts/version.sh
       - run: bundle install
+      # Currently Android builds will fail due to memory limitations on the
+      # CircleCI runners. They are disabled for now.
+      # See: https://github.com/dwmkerr/gameboard/issues/27
       - run: bundle exec fastlane android build
       - save_cache:
           paths:
@@ -111,12 +114,9 @@ workflows:
   node-android-ios:
     jobs:
       - build
-      # Currently Android builds will fail due to memory limitations on the
-      # CircleCI runners. They are disabled for now.
-      # See: https://github.com/dwmkerr/gameboard/issues/27
-      # - android:
-          # requires:
-            # - build
+      - android:
+          requires:
+            - build
       - ios:
           requires:
             - build
