@@ -8,7 +8,8 @@ import * as TrackScoreActions from '@redux/track-score/actions';
 import HomeView from './HomeView';
 
 // What data from the store shall we send to the component?
-const mapStateToProps = () => ({
+const mapStateToProps = state => ({
+  history: state.history,
 });
 
 // Any actions to map to the component?
