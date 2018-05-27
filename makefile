@@ -1,3 +1,5 @@
+build: ios android
+
 ios:
 	npm install
 	bundle install
