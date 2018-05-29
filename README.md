@@ -3,6 +3,9 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/dwmkerr/gameboard.svg)](https://greenkeeper.io/)
       - run: ./scripts/testfairy-upload.sh ./artifacts/android/GameBoard.apk
 
+## Developer Guide
+
+The app is based on [mcnamee/react-native-starter-kit](https://github.com/mcnamee/react-native-starter-kit) v2. v2 is significantly different to the current branch.
 ## Setup
 
 You'll need to setup some tools on your dev machine:
@@ -38,3 +41,5 @@ https://circleci.com/docs/2.0/ios-codesigning/
 
 - Setup following this: https://github.com/devfd/react-native-google-signin
 - Then set up signing following this: https://developers.google.com/android/guides/client-auth
+
+## 
