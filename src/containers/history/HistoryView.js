@@ -12,12 +12,6 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: 'white',
   },
-
-  // Tab Styles
-  tabContainer: {
-    flex: 1,
-    marginTop: 30,
-  },
 });
 
 class History extends Component {

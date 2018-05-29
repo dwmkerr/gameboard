@@ -59,6 +59,11 @@ class TrackScore extends Component {
     };
   }
 
+  componentWillMount() {
+    console.log("***track score view mount")
+
+  }
+
   componentWillReceiveProps() {
   }
 

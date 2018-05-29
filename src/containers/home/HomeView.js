@@ -11,11 +11,17 @@ import { Actions } from 'react-native-router-flux';
 import { AppStyles, AppSizes, AppColors } from '@theme/';
 
 // Components
-import { Body, Button, Left, List, ListItem, Icon, Right, Text } from 'native-base';
+import { Body, Button, Content, Left, List, ListItem, Icon, Right, Text } from 'native-base';
 import { JumboButton, Spacer } from '@ui/';
+
+
+import { AppConfig } from '@constants/';
 
 /* Styles ==================================================================== */
 const styles = StyleSheet.create({
+  content: {
+    backgroundColor: 'white',
+  },
   background: {
     backgroundColor: AppColors.brand.primary,
     height: AppSizes.screen.height,
@@ -54,8 +60,7 @@ class Home extends Component {
     const recentGames = history.playedGames.slice(0, 3);
 
     return (
-      <View style={[AppStyles.containerCentered, AppStyles.container, styles.background]}>
-
+      <Content style={styles.content}>
 
         <List>
           {recentGames.map(pg => (
@@ -82,16 +87,6 @@ class Home extends Component {
           ))
           }
         </List>
-
-        <View style={[AppStyles.row, AppStyles.paddingHorizontal]}>
-          <View style={[AppStyles.flex1]}>
-            <JumboButton
-              title="Track Score"
-              subtitle="Record the result of a game"
-              onPress={this.trackScore}
-            />
-          </View>
-        </View>
 
         <Spacer size={10} />
 
@@ -126,7 +121,7 @@ class Home extends Component {
             </Button>
           </View>
         </View>
-      </View>
+    </Content>
     );
   }
 }

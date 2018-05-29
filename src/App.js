@@ -12,7 +12,7 @@ import * as HistoryActions from '@redux/history/actions';
 
 
 import store from './store';
-import Router from './Router';
+import createRouter from './Router';
 
 class App extends Component {
   constructor() {
@@ -50,11 +50,14 @@ class App extends Component {
     }
   }
 
-  render = () => (
-    <Provider store={store}>
-      {Router}
-    </Provider>
-  )
+  render = () => {
+    const router = createRouter(store);
+    return (
+      <Provider store={store}>
+        {router}
+      </Provider>
+    );
+  }
 }
 
 export default App;

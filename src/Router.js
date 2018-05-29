@@ -1,6 +1,7 @@
 import React from 'react';
-import { Router, Scene, Stack } from 'react-native-router-flux';
-import { Icon } from 'native-base';
+import { StyleSheet } from 'react-native';
+import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
+import { Button, Icon } from 'native-base';
 
 import { AppConfig } from '@constants/';
 
@@ -14,7 +15,14 @@ import Home from '@containers/home/HomeContainer';
 import TrackScore from '@containers/track-score/TrackScoreContainer';
 import GameStats from '@containers/game-stats/GameStatsContainer';
 
-const Index = (
+import * as TrackScoreActions from '@redux/track-score/actions';
+
+async function trackScore(store) {
+  await store.dispatch(TrackScoreActions.start());
+  Actions.trackScore();
+}
+
+const createRouter = store => (
   <Router>
     <Stack key="root">
       <Scene key="launch" component={Launch} hideNavBar initial />
@@ -24,7 +32,8 @@ const Index = (
         key="home"
         title={AppConfig.appName.toUpperCase()}
         component={Home}
-        icon={() => <Icon name="home" {...AppConfig.icons} />}
+        icon={() => <Icon name="home" />}
+        renderRightButton={() => <Button transparent onPress={() => trackScore(store)}><Icon type="MaterialIcons" name="playlist-add" /></Button>}
         {...AppConfig.navbarProps}
       />
 
@@ -72,4 +81,4 @@ const Index = (
   </Router>
 );
 
-export default Index;
+export default createRouter;
