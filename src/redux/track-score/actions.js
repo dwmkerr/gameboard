@@ -10,8 +10,6 @@ export const start = () => async (dispatch) => {
     photoURL,
   } = firebase.auth().currentUser;
 
-  console.log("***track score start")
-
   //  Get the last played game.
   const lastGame = await firebase.database().ref(`/users/${uid}`).once('value');
   const lastGameName = (lastGame.val() && lastGame.val().lastTrackedGameName) || '';
@@ -23,8 +21,6 @@ export const start = () => async (dispatch) => {
     imageUri: photoURL,
     rank: null,
   }];
-
-  console.log("***track score dispatching")
 
   return dispatch({
     type: 'TRACK_SCORE_START',
@@ -98,5 +94,12 @@ export function setPlayerScore(id, score) {
   return {
     type: 'TRACK_SCORE_UPDATE_PLAYER',
     data: { id, changes: { score } },
+  };
+}
+
+export function setPlayerOrder(id, order) {
+  return {
+    type: 'TRACK_SCORE_UPDATE_PLAYER',
+    data: { id, changes: { order } },
   };
 }

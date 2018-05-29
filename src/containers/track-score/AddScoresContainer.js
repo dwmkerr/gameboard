@@ -17,6 +17,7 @@ const mapStateToProps = state => ({
 // Any actions to map to the component?
 const mapDispatchToProps = {
   trackScoreSetPlayerScore: TrackScoreActions.setPlayerScore,
+  trackScoreSetPlayerOrder: TrackScoreActions.setPlayerOrder,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddScores);

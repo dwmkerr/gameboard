@@ -11,11 +11,8 @@ import { Actions } from 'react-native-router-flux';
 import { AppStyles, AppSizes, AppColors } from '@theme/';
 
 // Components
-import { Body, Button, Content, Left, List, ListItem, Icon, Right, Text } from 'native-base';
-import { JumboButton, Spacer } from '@ui/';
-
-
-import { AppConfig } from '@constants/';
+import { Button, Content, List, Text } from 'native-base';
+import { JumboButton, RecentGame, Spacer } from '@ui/';
 
 /* Styles ==================================================================== */
 const styles = StyleSheet.create({
@@ -42,6 +39,7 @@ class Home extends Component {
 
   static propTypes = {
     trackScoreStart: PropTypes.func.isRequired,
+    history: PropTypes.shape({ }).isRequired,
     logout: PropTypes.func.isRequired,
   }
 
@@ -57,48 +55,26 @@ class Home extends Component {
     const { logout, history } = this.props;
 
     //  We only want the top three items.
-    const recentGames = history.playedGames.slice(0, 3);
+    const recentGames = history.playedGames;
 
     return (
       <Content style={styles.content}>
 
         <List>
           {recentGames.map(pg => (
-            <ListItem
+            <RecentGame
               key={pg.key}
-              button
+              timePlayed={pg.createdAt}
               onPress={() => Actions.HistoryPlayedGame({
                 enableDelete: pg.scorerUid === uid,
                 playedGame: pg,
               })}
-              icon
-            >
-              <Left>
-                <Icon name="podium" />
-              </Left>
-              <Body>
-                <Text>{pg.game}</Text>
-              </Body>
-              <Right>
-                <Text>Details</Text>
-                <Icon name="arrow-forward" />
-              </Right>
-            </ListItem>
+              players={pg.players}
+              game={pg.game}
+            />
           ))
           }
         </List>
-
-        <Spacer size={10} />
-
-        <View style={[AppStyles.row, AppStyles.paddingHorizontal]}>
-          <View style={[AppStyles.flex1]}>
-            <JumboButton
-              title="Game Stats"
-              subtitle="Who da best?"
-              onPress={Actions.gameStats}
-            />
-          </View>
-        </View>
 
         <Spacer size={10} />
 
@@ -121,7 +97,7 @@ class Home extends Component {
             </Button>
           </View>
         </View>
-    </Content>
+      </Content>
     );
   }
 }

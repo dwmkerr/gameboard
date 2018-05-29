@@ -19,6 +19,7 @@ class AddScore extends Component {
     game: PropTypes.string.isRequired,
     players: PropTypes.arrayOf(PropTypes.object).isRequired,
     trackScoreSetPlayerScore: PropTypes.func.isRequired,
+    trackScoreSetPlayerOrder: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -27,7 +28,7 @@ class AddScore extends Component {
   componentWillReceiveProps() {
   }
 
-  renderPlayer = rankedPlayer => (
+  renderPlayerScore = rankedPlayer => (
     <Player key={rankedPlayer.id} player={rankedPlayer} hideIcon>
       <View style={{ flex: 0, width: 80 }}>
         <Input
@@ -35,6 +36,21 @@ class AddScore extends Component {
           keyboardType="numeric"
           placeholder="Score"
           onChangeText={text => this.props.trackScoreSetPlayerScore(rankedPlayer.id, text)}
+        />
+      </View>
+    </Player>
+  )
+
+  renderPlayerOrder = rankedPlayer => (
+    <Player key={rankedPlayer.id} player={rankedPlayer} hideIcon>
+      <View style={{ flex: 0, width: 80 }}>
+        <Input
+          regular
+          keyboardType="numeric"
+          placeholder="Order"
+          onChangeText={
+            text => this.props.trackScoreSetPlayerOrder(rankedPlayer.id, Number.parseInt(text, 10))
+          }
         />
       </View>
     </Player>
@@ -59,11 +75,13 @@ class AddScore extends Component {
       >
         <H1>Add Scores for {game}?</H1>
         <Spacer size={20} />
-        {rankedPlayers.map(this.renderPlayer)}
+        {rankedPlayers.map(this.renderPlayerScore)}
+        <H1>Add Player Turn Order for {game}?</H1>
+        <Spacer size={20} />
+        {rankedPlayers.map(this.renderPlayerOrder)}
       </WizardPage>
     );
   }
 }
 
 export default AddScore;
-

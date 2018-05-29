@@ -14,6 +14,7 @@ import JumboButton from './JumboButton';
 import Player from './Player';
 import PlayerButton from './PlayerButton';
 import RankedPlayer from './RankedPlayer';
+import RecentGame from './RecentGame';
 import Spacer from './Spacer';
 import Text from './Text';
 import WizardPage from './WizardPage';
@@ -28,6 +29,7 @@ export {
   Player,
   PlayerButton,
   RankedPlayer,
+  RecentGame,
   Spacer,
   Text,
   WizardPage,

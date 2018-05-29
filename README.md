@@ -32,6 +32,31 @@ Followed the docs at:
 
 https://circleci.com/docs/2.0/ios-codesigning/
 
+## Data Schema
+
+### Played Game
+
+```
+{
+  "createdAt" : 1527400718170,
+  "game" : "Star Realms",
+  "players" : [ {
+    "email" : "dwmkerr@gmail.com",
+    "id" : "WisNqBdHXxPGuULiAMDo0zSE5ib2",
+    "imageUri" : "https://lh4.googleusercontent.com/-_zlypNvQ2cg/AAAAAAAAAAI/AAAAAAAAB2c/BNJTtlbVWus/s96-c/photo.jpg",
+    "name" : "Dave Kerr",
+    "order": 1
+  }, {
+    "email" : "SarahLawton2010@gmail.com",
+    "id" : "SarahLawton2010@gmail.com",
+    "key" : "-L1r82BWXFYqWSX4_zD7",
+    "name" : "Sarah Lawton",
+    "rank" : 1
+  } ],
+  "scorerUid" : "WisNqBdHXxPGuULiAMDo0zSE5ib2"
+}
+```
+
 ## Social Accounts
 
 - Twitter: https://apps.twitter.com/app/14632367
@@ -42,4 +67,4 @@ https://circleci.com/docs/2.0/ios-codesigning/
 - Setup following this: https://github.com/devfd/react-native-google-signin
 - Then set up signing following this: https://developers.google.com/android/guides/client-auth
 
-## 
+##
