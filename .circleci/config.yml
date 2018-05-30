@@ -128,13 +128,13 @@ workflows:
           filters:
             branches:
               only: master
-      # - release-beta:
-          # requires:
-            # - ios
+      - release-alpha:
+          requires:
+            - ios
             # - android
-          # filters:
-            # tags:
-              # # We release to testfairy if we have any new semver tag.
-              # only: /^[v]?\d+.\d+.\d+/
-            # branches:
-              # ignore: /.*/
+          filters:
+            tags:
+              # We release to testfairy if we have any new semver tag.
+              only: /^[v]?\d+.\d+.\d+/
+            branches:
+              ignore: /.*/
