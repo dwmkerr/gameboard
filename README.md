@@ -6,7 +6,7 @@
 ## Developer Guide
 
 The app is based on [mcnamee/react-native-starter-kit](https://github.com/mcnamee/react-native-starter-kit) v2. v2 is significantly different to the current branch.
-## Setup
+### Setup
 
 You'll need to setup some tools on your dev machine:
 
@@ -16,21 +16,27 @@ sudo gem install bundler
 bundle update
 ```
 
-## Guide
+### Guide
 
 The main application lifecycle, login state and connected state is managed in the `App` component.
 
-## Credentials
+### Credentials
 
 Most sensitive data is stored in: `git@github.com:dwmkerr/dwmkerr.git` in the `fastlane-match` branch. This branch contains the Android Keystore, Provisioning Profiles, Certs etc.
 
 Fastlane certs keyphrase: `gameboard`
 
-## CircleCI
+### CI/CD
 
-Followed the docs at:
+Builds are run on CircleCI 2.
 
-https://circleci.com/docs/2.0/ios-codesigning/
+Followed the docs at: https://circleci.com/docs/2.0/ios-codesigning/
+
+To create a release, run:
+
+```
+npm run release
+```
 
 ## Data Schema
 
