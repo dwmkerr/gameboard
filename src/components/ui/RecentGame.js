@@ -24,7 +24,7 @@ function renderStarter(players) {
 //  TODO: extract functions, unit tests for dates.
 const renderTimePlayed = (timePlayed) => {
   if (!timePlayed) return null;
-  const time = moment.unix(timePlayed / 1000);
+  const time = moment(timePlayed);
   const now = moment();
   const timeString = (t) => {
     const days = now.diff(t, 'days');
@@ -54,7 +54,6 @@ const renderRight = timePlayed => (
 
 const RecentGame = ({
   game,
-  thumbnailUrl,
   timePlayed,
   players,
   onPress,
@@ -65,10 +64,10 @@ const RecentGame = ({
     onPress={onPress}
   >
     <Left>
-      <Thumbnail source={{ uri: thumbnailUrl }} />
+      <Thumbnail source={{ uri: `https://us-central1-gameboard-560d5.cloudfunctions.net/api/games/${game.id}/thumbnail` }} />
     </Left>
     <Body>
-      <Text>{game}</Text>
+      <Text>{game.name}</Text>
       {renderWinners(players)}
       {renderStarter(players)}
     </Body>
@@ -79,15 +78,17 @@ const RecentGame = ({
 );
 
 RecentGame.propTypes = {
-  game: PropTypes.string.isRequired,
-  thumbnailUrl: PropTypes.string,
-  timePlayed: PropTypes.number.isRequired,
+  game: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string,
+    thumbnailUrl: PropTypes.string,
+  }).isRequired,
+  timePlayed: PropTypes.shape({}).isRequired,
   players: PropTypes.arrayOf(PropTypes.object).isRequired,
   onPress: PropTypes.func,
 };
 
 RecentGame.defaultProps = {
-  thumbnailUrl: 'https://cf.geekdo-images.com/medium/img/KsxtBeo64NomOMdMcIBhydHTgHo=/fit-in/500x500/filters:no_upscale()/pic1903816.jpg',
   onPress: null,
 };
 

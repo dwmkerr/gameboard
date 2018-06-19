@@ -23,12 +23,6 @@ export default function trackScoreReducer(state = initialState, action) {
       };
     }
 
-    case 'TRACK_SCORE_SUBMIT': {
-      return {
-        ...state,
-      };
-    }
-
     case 'TRACK_SCORE_ADD_PLAYER': {
       return {
         ...state,

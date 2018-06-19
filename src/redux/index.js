@@ -17,6 +17,7 @@ import history from '@redux/history/reducer';
 import router from '@redux/router/reducer';
 import sideMenu from '@redux/sidemenu/reducer';
 import trackScore from '@redux/track-score/reducer';
+import user from '@redux/user/reducer';
 
 // Combine all
 const appReducer = combineReducers({
@@ -29,6 +30,7 @@ const appReducer = combineReducers({
   sideMenu,
   form: formReducer,
   trackScore,
+  user,
 });
 
 // Setup root reducer

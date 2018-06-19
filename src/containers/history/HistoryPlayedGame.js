@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import firebase from 'react-native-firebase';
 import {
   Body,
   Button,
@@ -16,6 +17,7 @@ import {
   Right,
   Text,
 } from 'native-base';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
 
@@ -35,16 +37,52 @@ class HistoryPlayedGame extends Component {
   static propTypes = {
     enableDelete: PropTypes.bool.isRequired,
     playedGame: PropTypes.shape({}).isRequired,
-    gameStatsSetGame: PropTypes.func.isRequired,
-    historyDeleteGame: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
   }
 
+  state = {
+    showDatePicker: false,
+  };
+
+  onSetDate = (date) => {
+    const { playedGame: { key } } = this.props;
+    //  Update the date of the document.
+    firebase.firestore()
+      .collection('played-games')
+      .doc(key)
+      .set({
+        createdAt: date,
+      }, { merge: true });
+    this.setState({ ...this.state, showDatePicker: false });
+  }
+
+  editDate = () => {
+    this.setState({ ...this.state, showDatePicker: true });
+  }
+
+  editGame = (key) => {
+    Actions.push('chooseGameModal', {
+      onSelectGame: (selectedGame) => {
+        //  Now we need to update and link the game...
+        firebase.firestore()
+          .collection('played-games')
+          .doc(key)
+          .set({
+            game: selectedGame,
+          }, { merge: true });
+        Actions.pop();
+      },
+    });
+  }
+
   deleteGame = (key) => {
     const del = () => {
-      this.props.historyDeleteGame(key);
+      firebase.firestore()
+        .collection('played-games')
+        .doc(key)
+        .remove();
       Actions.pop();
     };
 
@@ -59,16 +97,47 @@ class HistoryPlayedGame extends Component {
   }
 
   gameStats = (game) => {
-    this.props.gameStatsSetGame(game);
-    Actions.gameStats();
+    Actions.gameStats({ game });
   }
+
+  renderFixTimestamp = (key, game) => {
+    //  Games which have a valid time as a timestamp don't need fixing.
+    if (game.id) return null;
+
+    return (
+      <View>
+        <Spacer size={10} />
+        <Text>
+          This game has a badly formatted timestamp, press the button below to
+          fix it.
+        </Text>
+        <Button primary onPress={() => this.linkGame(key)}><Text>Link Now</Text></Button>
+      </View>
+    );
+  }
+
+  renderDetail = ({ label, value, onEdit }) => (
+    <View style={{ flex: 1, flexDirection: 'row' }}>
+      <View style={{ }}><Text>{label}</Text></View>
+      <View style={{ }}><Text>{value}</Text></View>
+      <View style={{ }}>
+        <Button transparent onPress={onEdit}>
+          <Icon
+            type="MaterialIcons"
+            name="edit"
+            style={{ fontSize: 20, color: 'black' }}
+          />
+        </Button>
+      </View>
+    </View>
+  );
 
   render = () => {
     const {
       enableDelete,
       playedGame: {
-        game,
         key,
+        game,
         createdAt,
         players,
       },
@@ -89,10 +158,11 @@ class HistoryPlayedGame extends Component {
 
     return (
       <Content style={styles.content}>
-        <H1>{game}</H1>
+        <H1>{game.name}</H1>
         <Spacer size={10} />
-        { createdAt && <Text>{moment.unix(createdAt / 1000).format('LLLL')}</Text>}
-        <Spacer size={30} />
+        { this.renderDetail({ label: 'Game', value: game.name, onEdit: () => { this.editGame(game.key); } }) }
+        { this.renderDetail({ label: 'Date', value: moment(createdAt).format('LLL'), onEdit: () => { this.editDate(); } }) }
+        <Spacer size={10} />
         <List>
           { Object.keys(rankedPlayers).map(playerKey => (
             <View key={playerKey}>
@@ -111,7 +181,7 @@ class HistoryPlayedGame extends Component {
           }
           <Spacer size={30} />
           <Button onPress={() => this.gameStats(game)}>
-            <Text>{game} Stats</Text>
+            <Text>{game.name} Stats</Text>
           </Button>
           <Spacer size={30} />
           { enableDelete &&
@@ -121,6 +191,13 @@ class HistoryPlayedGame extends Component {
             </Button>
           }
         </List>
+        <DateTimePicker
+          mode="datetime"
+          date={createdAt}
+          isVisible={this.state.showDatePicker}
+          onConfirm={this.onSetDate}
+          onCancel={() => { this.setState({ ...this.state, showDatePicker: false }); }}
+        />
       </Content>
     );
   }

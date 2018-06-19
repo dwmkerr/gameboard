@@ -1,22 +1,25 @@
-/**
- * Add Scores View
- *  - Used to add scores (if wanted) to a tracked game.
- */
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import { H1, Input } from 'native-base';
+import { connect } from 'react-redux';
+import { ScrollView, View } from 'react-native';
+import {
+  Container,
+  H1,
+  Input,
+} from 'native-base';
 import PropTypes from 'prop-types';
 
-import { Player, Spacer, WizardPage } from '@components/ui/';
+import { Player, Spacer } from '@components/ui/';
 import rankings from '@lib/rankings';
+import * as TrackScoreActions from '@redux/track-score/actions';
 
-class AddScore extends Component {
+class AddScores extends Component {
   static componentName = 'AddScore';
 
   static propTypes = {
-    onNext: PropTypes.func.isRequired,
-    previousPage: PropTypes.func.isRequired,
-    game: PropTypes.string.isRequired,
+    game: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired,
     players: PropTypes.arrayOf(PropTypes.object).isRequired,
     trackScoreSetPlayerScore: PropTypes.func.isRequired,
     trackScoreSetPlayerOrder: PropTypes.func.isRequired,
@@ -58,8 +61,6 @@ class AddScore extends Component {
 
   render = () => {
     const {
-      onNext,
-      previousPage,
       game,
       players,
     } = this.props;
@@ -67,21 +68,28 @@ class AddScore extends Component {
     const rankedPlayers = rankings.rankPlayers(players);
 
     return (
-      <WizardPage
-        nextLabel="Done"
-        previousLabel="Back"
-        onNext={onNext}
-        onPrevious={previousPage}
-      >
-        <H1>Add Scores for {game}?</H1>
-        <Spacer size={20} />
-        {rankedPlayers.map(this.renderPlayerScore)}
-        <H1>Add Player Turn Order for {game}?</H1>
-        <Spacer size={20} />
-        {rankedPlayers.map(this.renderPlayerOrder)}
-      </WizardPage>
+      <Container style={{ flex: 1, padding: 20 }}>
+        <ScrollView>
+          <H1>Add Scores for {game.name}?</H1>
+          <Spacer size={20} />
+          {rankedPlayers.map(this.renderPlayerScore)}
+          <H1>Add Player Turn Order for {game.name}?</H1>
+          <Spacer size={20} />
+          {rankedPlayers.map(this.renderPlayerOrder)}
+        </ScrollView>
+      </Container>
     );
   }
 }
 
-export default AddScore;
+const mapStateToProps = state => ({
+  game: state.trackScore.game,
+  players: state.trackScore.players,
+});
+
+const mapDispatchToProps = {
+  trackScoreSetPlayerScore: TrackScoreActions.setPlayerScore,
+  trackScoreSetPlayerOrder: TrackScoreActions.setPlayerOrder,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddScores);

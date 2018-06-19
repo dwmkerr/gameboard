@@ -23,6 +23,8 @@
     "output": "./artifacts/tests/junit.xml"
   },
   "dependencies": {
+    "buffer": "^5.1.0",
+    "events": "^3.0.0",
     "firebase": "^5.0.2",
     "moment": "^2.20.1",
     "native-base": "^2.4.5",
@@ -34,6 +36,7 @@
     "react-native-google-analytics-bridge": "^5.4.1",
     "react-native-google-signin": "^0.12.0",
     "react-native-keyboard-aware-scroll-view": "^0.5.0",
+    "react-native-modal-datetime-picker": "^5.1.0",
     "react-native-rename": "^2.2.2",
     "react-native-router-flux": "^4.0.0-beta.25",
     "react-native-side-menu": "^1.1.3",
@@ -46,7 +49,9 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.1.0",
     "regenerator-runtime": "^0.11.1",
-    "tcomb-form-native": "^0.6.11"
+    "stream": "0.0.2",
+    "tcomb-form-native": "^0.6.11",
+    "timers": "^0.1.1"
   },
   "devDependencies": {
     "app-icon": "^0.6.3",
