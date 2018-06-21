@@ -116,13 +116,13 @@ class App extends Component {
       });
 
     //  Watch the friends for the user.
-    firebase.database()
-      .ref(`friends/${user.uid}`)
-      .on('value', (snapshot) => {
+    firebase.firestore()
+      .collection(`users/${user.uid}/friends`)
+      .onSnapshot((snapshot) => {
         const friends = [];
         snapshot.forEach((child) => {
-          const item = child.val();
-          item.key = child.key;
+          const item = child.data();
+          item.key = child.id;
           friends.push(item);
         });
         dispatch(FriendsActions.updateFriends(friends));

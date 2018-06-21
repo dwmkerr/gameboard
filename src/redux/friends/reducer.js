@@ -1,6 +1,3 @@
-/**
- * Track Score Reducer
- */
 import Store from './store';
 
 // Set initial state
@@ -15,12 +12,6 @@ export default function friendsReducer(state = initialState, action) {
       };
     }
 
-    case 'ADD_FRIEND': {
-      return {
-        ...state,
-        friends: [...state.friends, action.data],
-      };
-    }
     default:
       return state;
   }

@@ -1,8 +1,5 @@
-/*
- * Track Score View
- *  - Contains a multi-screen form to let the user track the score for a game.
- */
 import React, { Component } from 'react';
+import firebase from 'react-native-firebase';
 import PropTypes from 'prop-types';
 import { H1 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
@@ -22,18 +19,20 @@ class AddFriend extends Component {
   static componentName = 'AddFriend';
 
   static propTypes = {
-    addFriend: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
   }
 
-  submit = (values) => {
+  submit = async (values) => {
     //  Before we add a friend, we need to give them an id. If we have an email,
     //  perfect. If not, their name becomes their id.
     const friend = values;
     Object.assign(friend, { id: (friend.email || friend.name) });
 
     //  Add the friend, and pop the view.
-    this.props.addFriend(friend);
+    const { uid } = firebase.auth().currentUser;
+    await firebase.firestore()
+      .collection(`users/${uid}/friends`)
+      .add(friend);
     Actions.pop();
   }
 

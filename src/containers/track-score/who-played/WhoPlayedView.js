@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
+import firebase from 'react-native-firebase';
 import { Actions } from 'react-native-router-flux';
 import {
-  Button,
+  Body,
   Container,
   Content,
-  H1,
-  H2,
   Header,
   Icon,
+  Item,
   Input,
+  Left,
   List,
   ListItem,
+  Right,
+  Separator,
   Text,
 } from 'native-base';
 import PropTypes from 'prop-types';
-import { Player, PlayerButton, Spacer } from '@components/ui/';
 import { connect } from 'react-redux';
 import * as TrackScoreActions from '@redux/track-score/actions';
 
@@ -25,10 +27,6 @@ class WhoPlayed extends Component {
   static propTypes = {
     friends: PropTypes.arrayOf(PropTypes.object).isRequired,
     players: PropTypes.arrayOf(PropTypes.object).isRequired,
-    game: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-    }).isRequired,
     trackScoreAddPlayer: PropTypes.func.isRequired,
     trackScoreRemovePlayer: PropTypes.func.isRequired,
   }
@@ -36,9 +34,49 @@ class WhoPlayed extends Component {
   static defaultProps = {
   }
 
+  state = {
+    searchText: null,
+  }
+
+  search = (searchText) => {
+    this.setState({ ...this.state, searchText });
+  }
+
+  filterFriend = (friend) => {
+    if (!this.state.searchText) return true;
+    return friend.name.toLowerCase().indexOf(this.state.searchText.toLowerCase()) !== -1;
+  }
+
+  renderPlayer = (player, selected) => {
+    let icon = selected
+      ? <Icon style={{ color: 'green' }} type="MaterialCommunityIcons" name="checkbox-marked-circle" />
+      : <Icon type="MaterialCommunityIcons" name="circle-outline" />;
+
+    let action = selected
+      ? () => this.props.trackScoreRemovePlayer(player.id)
+      : () => this.props.trackScoreAddPlayer(player);
+
+    //  If the player is the current player, we have no icon
+    //  and cannot select/deselect them.
+    if (firebase.auth().currentUser.uid === player.id) {
+      icon = null;
+      action = null;
+    }
+
+    return (
+      <ListItem icon onPress={action} key={player.id}>
+        <Body>
+          <Text>{player.name}</Text>
+        </Body>
+        <Right>
+          { icon}
+        </Right>
+      </ListItem>
+    );
+  }
+
   render = () => {
     const {
-      game,
       friends,
       players,
     } = this.props;
@@ -46,47 +84,43 @@ class WhoPlayed extends Component {
     //  The available players to add to the game are our set of friends who are
     //  not yet already in the player list.
     const playerKeys = players.map(p => p.id);
-    const availableFriends = friends.filter(f => playerKeys.indexOf(f.id) === -1);
+    const availableFriends = friends
+      .filter(f => playerKeys.indexOf(f.id) === -1)
+      .filter(this.filterFriend);
 
     return (
-      <View>
-        <Container style={{ flex: 1, padding: 20 }}>
-          <ScrollView>
-            <H1>Who Played {game.name}?</H1>
-            <Spacer size={20} />
-            { players.map(player => (
-              <Player key={player.id} player={player}>
-                <PlayerButton
-                  iconName="remove"
-                  onPress={() => this.props.trackScoreRemovePlayer(player.id)}
-                />
-              </Player>
-            ))
-            }
-            <Spacer size={10} />
-            <H2>Friends</H2>
-            { availableFriends.map(player => (
-              <Player key={player.id} player={player}>
-                <PlayerButton
-                  iconName="add"
-                  onPress={() => this.props.trackScoreAddPlayer(player)}
-                />
-              </Player>
-            ))
-            }
-            <Spacer size={10} />
-            <Button
-              onPress={Actions.AddFriend}
-              iconLeft
-              block
-              primary
-            >
-              <Icon name="add" />
-              <Text>Add Friend</Text>
-            </Button>
-          </ScrollView>
-        </Container>
-      </View>
+      <Container>
+        <Header searchBar rounded>
+          <Item>
+            <Icon name="ios-search" />
+            <Input
+              placeholder="Search"
+              onChangeText={this.search}
+              value={this.state.searchText}
+            />
+            <Icon name="ios-people" />
+          </Item>
+        </Header>
+        <ScrollView>
+          <Content>
+            <List>
+              <ListItem selected onPress={Actions.AddFriend}>
+                <Left>
+                  <Text>Add Friend</Text>
+                </Left>
+              </ListItem>
+              <Separator bordered>
+                <Text>Selected</Text>
+              </Separator>
+              { players.map(p => this.renderPlayer(p, true)) }
+              <Separator bordered>
+                <Text>Friends</Text>
+              </Separator>
+              { availableFriends.map(p => this.renderPlayer(p, false)) }
+            </List>
+          </Content>
+        </ScrollView>
+      </Container>
     );
   }
 }
