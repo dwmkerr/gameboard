@@ -33,7 +33,7 @@
     "react-native-firebase": "^4.0.0",
     "react-native-google-analytics-bridge": "^5.4.1",
     "react-native-google-signin": "^0.12.0",
-    "react-native-keyboard-aware-scroll-view": "^0.5.0",
+    "react-native-keyboard-aware-scroll-view": "^0.6.0",
     "react-native-rename": "^2.2.2",
     "react-native-router-flux": "^4.0.0-beta.25",
     "react-native-side-menu": "^1.1.3",
