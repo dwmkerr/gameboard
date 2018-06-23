@@ -12,6 +12,7 @@ import {
   Content,
   H1,
   Icon,
+  Left,
   List,
   ListItem,
   Right,
@@ -23,6 +24,7 @@ import moment from 'moment';
 
 import rankings from '@lib/rankings';
 import { Spacer } from '@components/ui/';
+import Badge from '@components/ui/Badge';
 
 const styles = StyleSheet.create({
   content: {
@@ -100,27 +102,11 @@ class HistoryPlayedGame extends Component {
     Actions.gameStats({ game });
   }
 
-  renderFixTimestamp = (key, game) => {
-    //  Games which have a valid time as a timestamp don't need fixing.
-    if (game.id) return null;
-
-    return (
-      <View>
-        <Spacer size={10} />
-        <Text>
-          This game has a badly formatted timestamp, press the button below to
-          fix it.
-        </Text>
-        <Button primary onPress={() => this.linkGame(key)}><Text>Link Now</Text></Button>
-      </View>
-    );
-  }
-
   renderDetail = ({ label, value, onEdit }) => (
-    <View style={{ flex: 1, flexDirection: 'row' }}>
-      <View style={{ }}><Text>{label}</Text></View>
-      <View style={{ }}><Text>{value}</Text></View>
-      <View style={{ }}>
+    <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row' }}>
+      <View style={{ flex: 1 }}><Text style={{ color: '#ababab' }}>{label}</Text></View>
+      <View style={{ flex: 4 }}><Text>{value}</Text></View>
+      <View style={{ flex: 1 }}>
         <Button transparent onPress={onEdit}>
           <Icon
             type="MaterialIcons"
@@ -143,54 +129,40 @@ class HistoryPlayedGame extends Component {
       },
     } = this.props;
 
-    //  Before we order by rank, fix any undefined ranks.
-    const fixedPlayers = players.map(p => ({
-      ...p,
-      rank: (p.rank === undefined ? null : p.rank),
-    }));
-
-    //  Order the players by rank.
-    const rankedPlayers = fixedPlayers.reduce((acc, player) => {
-      acc[player.rank] = acc[player.rank] || [];
-      acc[player.rank].push({ ...player });
-      return acc;
-    }, { });
+    //  Rank order the players.
+    const rankedPlayers = rankings.rankPlayers(players);
 
     return (
       <Content style={styles.content}>
         <H1>{game.name}</H1>
         <Spacer size={10} />
-        { this.renderDetail({ label: 'Game', value: game.name, onEdit: () => { this.editGame(game.key); } }) }
+        { this.renderDetail({ label: 'Game', value: game.name, onEdit: () => { this.editGame(key); } }) }
         { this.renderDetail({ label: 'Date', value: moment(createdAt).format('LLL'), onEdit: () => { this.editDate(); } }) }
         <Spacer size={10} />
         <List>
-          { Object.keys(rankedPlayers).map(playerKey => (
-            <View key={playerKey}>
-              <ListItem itemDivider>
-                <Text>{rankings.rankName(playerKey)}</Text>
-              </ListItem>
-              { rankedPlayers[playerKey].map(player => (
-                <ListItem key={player.id}>
-                  <Body><Text>{player.name}</Text></Body>
-                  <Right><Text>{player.score}</Text></Right>
-                </ListItem>
-              ))
-              }
-            </View>
-          ))
-          }
-          <Spacer size={30} />
-          <Button onPress={() => this.gameStats(game)}>
-            <Text>{game.name} Stats</Text>
-          </Button>
-          <Spacer size={30} />
-          { enableDelete &&
-            <Button iconLeft danger onPress={() => this.deleteGame(key)}>
-              <Icon name="trash" />
-              <Text>Delete</Text>
-            </Button>
+          { rankedPlayers.map(p => (
+            <ListItem key={p.id} icon>
+              <Left>
+                { /* <Thumbnail source={require('../../images/unknown.png')} small /> */ }
+                <Badge rank={p.rank} />
+              </Left>
+              <Body>
+                <Text>{p.name}</Text>
+              </Body>
+              <Right><Text>{p.score}</Text></Right>
+            </ListItem>
+            ))
           }
         </List>
+
+        <Spacer size={30} />
+        { enableDelete &&
+          <Button block danger onPress={() => this.deleteGame(key)}>
+            <Icon name="trash" />
+            <Text>Delete</Text>
+          </Button>
+        }
+
         <DateTimePicker
           mode="datetime"
           date={createdAt}

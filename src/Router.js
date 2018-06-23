@@ -2,9 +2,10 @@ import firebase from 'react-native-firebase';
 import React from 'react';
 import {
   Actions,
+  Drawer,
+  Reducer,
   Router,
   Scene,
-  Stack,
 } from 'react-native-router-flux';
 import { Button, Icon, Right, Text } from 'native-base';
 
@@ -21,6 +22,8 @@ import ChooseGame from '@containers/track-score/choose-game/ChooseGameView';
 import WhoPlayed from '@containers/track-score/who-played/WhoPlayedView';
 import WhoWon from '@containers/track-score/who-won/WhoWonView';
 import AddScores from '@containers/track-score/add-scores/AddScoresView';
+
+import Sidebar from '@containers/sidebar/Sidebar';
 
 import * as TrackScoreActions from '@redux/track-score/actions';
 
@@ -49,79 +52,126 @@ async function completeTrackScore(store) {
     .add(playedGame);
 }
 
+const reducerCreate = (params) => {
+  const defaultReducer = new Reducer(params);
+  return (state, action) => {
+    console.log('ACTION:', action);
+    return defaultReducer(state, action);
+  };
+};
+
+/*
+    <Stack
+          key="root"
+                drawer="true"
+                      drawerIcon={<Icon type="MaterialIcons" name="menu" />}
+                            drawerWidth={300}
+                                >
+
+*/
 const createRouter = store => (
-  <Router>
-    <Stack key="root">
+  <Router
+    createReducer={reducerCreate}
+  >
+    <Scene
+      key="root"
+      hideNavBar
+    >
       <Scene key="launch" component={Launch} hideNavBar initial />
       <Scene key="login" component={Login} hideNavBar />
 
-      <Scene
+      <Drawer
         key="home"
-        title="GameBoard"
-        component={Home}
-        icon={() => <Icon name="home" />}
-        renderRightButton={() => <Button transparent onPress={() => trackScore(store)}><Icon type="MaterialIcons" name="playlist-add" /></Button>}
-      />
+        drawerIcon={<Icon type="MaterialIcons" name="menu" />}
+        drawerWidth={260}
+        contentComponent={Sidebar}
+      >
+        <Scene
+          key="main"
+        >
 
-      <Scene
-        key="chooseGame"
-        title="Score: Choose Game"
-        component={ChooseGame}
+          <Scene
+            title="GameBoard"
+            component={Home}
+            icon={() => <Icon name="home" />}
+            renderRightButton={() => <Button transparent onPress={() => trackScore(store)}><Icon type="MaterialIcons" name="playlist-add" /></Button>}
+          />
 
-        onSelectGame={trackScoreSelectGame(store)}
-      />
+          <Scene
+            key="chooseGame"
+            title="Score: Choose Game"
+            component={ChooseGame}
+            back
+            onSelectGame={trackScoreSelectGame(store)}
+          />
 
-      <Scene
-        key="whoPlayed"
-        title="Score: Players"
-        component={WhoPlayed}
-        renderRightButton={() => <Right><Button transparent onPress={Actions.whoWon}><Text>Next</Text><Icon name="arrow-forward" /></Button></Right>}
-      />
+          <Scene
+            key="whoPlayed"
+            title="Score: Players"
+            component={WhoPlayed}
+            back
+            renderRightButton={() => <Right><Button transparent onPress={Actions.whoWon}><Text>Next</Text><Icon name="arrow-forward" /></Button></Right>}
+          />
 
-      <Scene
-        key="whoWon"
-        title="Score: Winners"
-        component={WhoWon}
-        renderRightButton={() => <Right><Button transparent onPress={Actions.addScores}><Text>Next</Text><Icon name="arrow-forward" /></Button></Right>}
-      />
+          <Scene
+            key="whoWon"
+            title="Score: Winners"
+            component={WhoWon}
+            back
+            renderRightButton={() => <Right><Button transparent onPress={Actions.addScores}><Text>Next</Text><Icon name="arrow-forward" /></Button></Right>}
+          />
 
-      <Scene
-        key="addScores"
-        title="Score: Extras"
-        component={AddScores}
-        renderRightButton={() => <Right><Button transparent onPress={() => completeTrackScore(store)}><Text>Done</Text><Icon name="arrow-forward" /></Button></Right>}
-      />
+          <Scene
+            key="addScores"
+            title="Score: Extras"
+            component={AddScores}
+            back
+            renderRightButton={() => <Right><Button transparent onPress={() => completeTrackScore(store)}><Text>Done</Text><Icon name="arrow-forward" /></Button></Right>}
+          />
 
-      <Scene
-        key="gameStats"
-        title="Game Stats"
-        component={GameStats}
-        icon={() => <Icon name="stats" />}
-      />
+          <Scene
+            key="gameStats"
+            title="Game Stats"
+            component={GameStats}
+            back
+            icon={() => <Icon name="stats" />}
+          />
 
-      <Scene
-        key="HistoryPlayedGame"
-        title="History"
-        component={HistoryPlayedGame}
-        icon={() => <Icon name="stats" />}
-        clone
-      />
+          <Scene
+            key="HistoryPlayedGame"
+            title="History"
+            component={HistoryPlayedGame}
+            back
+            icon={() => <Icon name="stats" />}
+            clone
+          />
 
-      <Scene
-        key="linkGame"
-        title="Search BGG"
-        component={ChooseGame}
-      />
+          <Scene
+            key="linkGame"
+            title="Search BGG"
+            back
+            component={ChooseGame}
+          />
 
-      <Scene
-        key="AddFriend"
-        title="Add Friend"
-        component={AddFriend}
-        icon={() => <Icon name="add" />}
-      />
+          <Scene
+            key="AddFriend"
+            title="Add Friend"
+            component={AddFriend}
+            back
+            icon={() => <Icon name="add" />}
+          />
 
-      <Scene key="chooseGameModal" component={ChooseGame} />
-    </Stack>
+          <Scene
+            key="chooseGameModal"
+            title="Choose Game"
+            component={ChooseGame}
+            back
+          />
+
+        </Scene>
+
+      </Drawer>
+    </Scene>
   </Router>
 );
 

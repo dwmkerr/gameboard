@@ -1,34 +1,14 @@
 import TestFairy from 'react-native-testfairy';
 
-function trace(msg) {
+function logInternal(msg) {
   console.log(msg);
-  TestFairy.log('Your log message here');
-}
-
-function info(msg) {
-  console.log(msg);
-  TestFairy.log('Your log message here');
-}
-
-function log(msg) {
-  console.log(msg);
-  TestFairy.log('Your log message here');
-}
-
-function warn(msg) {
-  console.log(msg);
-  TestFairy.log('Your log message here');
-}
-
-function error(msg) {
-  console.log(msg);
-  TestFairy.log('Your log message here');
+  TestFairy.log(msg);
 }
 
 module.exports = {
-  trace,
-  info,
-  log,
-  warn,
-  error,
+  trace: logInternal,
+  info: logInternal,
+  log: logInternal,
+  warn: logInternal,
+  error: logInternal,
 };

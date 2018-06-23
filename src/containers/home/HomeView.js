@@ -40,7 +40,6 @@ class Home extends Component {
   static propTypes = {
     trackScoreStart: PropTypes.func.isRequired,
     history: PropTypes.shape({ }).isRequired,
-    logout: PropTypes.func.isRequired,
   }
 
   trackScore = async () => {
@@ -52,7 +51,7 @@ class Home extends Component {
   render = () => {
     //  Get the current user id, users can only delete games they have scored.
     const { uid } = firebase.auth().currentUser;
-    const { logout, history } = this.props;
+    const { history } = this.props;
 
     //  We only want the top three items.
     const recentGames = history.playedGames;
@@ -75,16 +74,6 @@ class Home extends Component {
           ))
           }
         </List>
-
-        <Spacer size={10} />
-
-        <View style={[AppStyles.row, AppStyles.paddingHorizontal]}>
-          <View style={[AppStyles.flex1]}>
-            <Button onPress={logout} style={{ justifyContent: 'center', width: 120, alignSelf: 'center' }}>
-              <Text style={styles.whiteText}>Logout</Text>
-            </Button>
-          </View>
-        </View>
       </Content>
     );
   }

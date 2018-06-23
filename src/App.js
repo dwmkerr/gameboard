@@ -43,10 +43,8 @@ class App extends Component {
       if (!user) {
         Actions.login({ type: 'reset' });
       } else {
-        //  TODO: game stats don't really work at the moment, so disabling them.
-        //  Load stats for Grifters for now...
-        //  Also start watching online data.
-        // GameStatsActions.setGame('Grifters')(dispatch);
+        //  Track the user in GA.
+        firebase.analytics().setUserId(user.uid);
         this.watchCollections(user);
       }
     });
