@@ -50,7 +50,6 @@
     "redux-thunk": "^2.1.0",
     "regenerator-runtime": "^0.11.1",
     "stream": "0.0.2",
-    "tcomb-form-native": "^0.6.11",
     "timers": "^0.1.1"
   },
   "devDependencies": {

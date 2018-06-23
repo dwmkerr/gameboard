@@ -7,10 +7,10 @@
 import { GoogleAnalyticsTracker } from 'react-native-google-analytics-bridge';
 
 // Consts and Libs
-import { AppConfig } from '@constants/';
+import config from '../config';
 
 // Google Analytics
-const GoogleAnalytics = new GoogleAnalyticsTracker(AppConfig.gaTrackingId);
+const GoogleAnalytics = new GoogleAnalyticsTracker(config.gaTrackingId);
 
 const track = store => next => (action) => {
   // Track each screen view to Redux

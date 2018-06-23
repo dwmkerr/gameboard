@@ -85,3 +85,13 @@ npm run release
 
 - Setup following this: https://github.com/devfd/react-native-google-signin
 - Then set up signing following this: https://developers.google.com/android/guides/client-auth
+
+## TODO
+
+- [ ] Navbar buttons: use nativebase header
+- [X] Edit Game
+- [X] Edit Time
+- [ ] Format Game History Page
+- [ ] Move logout to side menu
+- [ ] Move user account to firestore
+- [ ] Game History auto refresh

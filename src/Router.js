@@ -8,7 +8,6 @@ import {
 } from 'react-native-router-flux';
 import { Button, Icon, Right, Text } from 'native-base';
 
-import { AppConfig } from '@constants/';
 
 // Scenes
 import AddFriend from '@containers/add-friend/AddFriendContainer';
@@ -58,77 +57,67 @@ const createRouter = store => (
 
       <Scene
         key="home"
-        title={AppConfig.appName.toUpperCase()}
+        title="GameBoard"
         component={Home}
         icon={() => <Icon name="home" />}
         renderRightButton={() => <Button transparent onPress={() => trackScore(store)}><Icon type="MaterialIcons" name="playlist-add" /></Button>}
-        {...AppConfig.navbarProps}
       />
 
       <Scene
         key="chooseGame"
-        title="SCORE: CHOOSE GAME"
+        title="Score: Choose Game"
         component={ChooseGame}
-        {...AppConfig.navbarProps}
 
         onSelectGame={trackScoreSelectGame(store)}
       />
 
       <Scene
         key="whoPlayed"
-        title="SCORE: PLAYERS"
+        title="Score: Players"
         component={WhoPlayed}
         renderRightButton={() => <Right><Button transparent onPress={Actions.whoWon}><Text>Next</Text><Icon name="arrow-forward" /></Button></Right>}
-        {...AppConfig.navbarProps}
       />
 
       <Scene
         key="whoWon"
-        title="SCORE: WINNERS"
+        title="Score: Winners"
         component={WhoWon}
         renderRightButton={() => <Right><Button transparent onPress={Actions.addScores}><Text>Next</Text><Icon name="arrow-forward" /></Button></Right>}
-        {...AppConfig.navbarProps}
       />
 
       <Scene
         key="addScores"
-        title="SCORE: EXTRAS"
+        title="Score: Extras"
         component={AddScores}
-        renderRightButton={() => <Right><Button transparent onPress={Actions.addScores}><Text>Done</Text><Icon name="arrow-forward" /></Button></Right>}
-        onRight={() => { completeTrackScore(store); }}
-        {...AppConfig.navbarProps}
+        renderRightButton={() => <Right><Button transparent onPress={() => completeTrackScore(store)}><Text>Done</Text><Icon name="arrow-forward" /></Button></Right>}
       />
 
       <Scene
         key="gameStats"
-        title="GAME STATS"
+        title="Game Stats"
         component={GameStats}
-        icon={() => <Icon name="stats" {...AppConfig.icons} />}
-        {...AppConfig.navbarProps}
+        icon={() => <Icon name="stats" />}
       />
 
       <Scene
         key="HistoryPlayedGame"
-        title="HISTORY"
+        title="History"
         component={HistoryPlayedGame}
-        icon={() => <Icon name="stats" {...AppConfig.icons} />}
-        {...AppConfig.navbarProps}
+        icon={() => <Icon name="stats" />}
         clone
       />
 
       <Scene
         key="linkGame"
-        title="SEARCH BGG"
+        title="Search BGG"
         component={ChooseGame}
-        {...AppConfig.navbarProps}
       />
 
       <Scene
         key="AddFriend"
-        title="ADD FRIEND"
+        title="Add Friend"
         component={AddFriend}
-        icon={() => <Icon name="add" {...AppConfig.icons} />}
-        {...AppConfig.navbarProps}
+        icon={() => <Icon name="add" />}
       />
 
       <Scene key="chooseGameModal" component={ChooseGame} />

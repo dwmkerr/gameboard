@@ -11,6 +11,7 @@ import * as FriendsActions from '@redux/friends/actions';
 import * as HistoryActions from '@redux/history/actions';
 import * as UserActions from '@redux/user/actions';
 
+import config from './config';
 import store from './store';
 import createRouter from './Router';
 
@@ -30,7 +31,7 @@ class App extends Component {
   }
 
   componentWillMount = () => {
-    TestFairy.begin('eb518cbf74f80a4341651020de4c57fdad0749d0');
+    TestFairy.begin(config.testFairyApiKey);
   }
 
   componentDidMount() {

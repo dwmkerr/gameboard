@@ -1,11 +1,3 @@
-/**
- * Authenticate Screen
- *  - Entry screen for all authentication
- *  - User can tap to login, forget password, signup...
- *
- * React Native Starter App
- * https://github.com/mcnamee/react-native-starter-app
- */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -20,6 +12,7 @@ import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
 // Consts and Libs
 import { AppStyles, AppSizes, AppColors } from '@theme/';
 import log from '@lib/log';
+import config from '../../config';
 
 /* Styles ==================================================================== */
 const styles = StyleSheet.create({
@@ -48,9 +41,7 @@ class Login extends Component {
   async componentDidMount() {
     //  Platform specific Google Signin configuration.
     if (Platform.OS === 'ios') {
-      await GoogleSignin.configure({
-        iosClientId: '975841127237-1u0in83mi62uai9aao8l41vu2h9ca717.apps.googleusercontent.com',
-      });
+      await GoogleSignin.configure({ iosClientId: config.googleSignInIosClientId });
     }
 
     if (Platform.OS === 'android') {
@@ -64,9 +55,7 @@ class Login extends Component {
       }
 
       //  Configure Sign In - the fields we want etc.
-      await GoogleSignin.configure({
-        iosClientId: '975841127237-1u0in83mi62uai9aao8l41vu2h9ca717.apps.googleusercontent.com', // only for iOS
-      });
+      await GoogleSignin.configure({ iosClientId: config.googleSignInIosClientId });
     }
   }
 

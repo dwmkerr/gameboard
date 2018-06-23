@@ -12,7 +12,7 @@ import { AppStyles, AppSizes, AppColors } from '@theme/';
 
 // Components
 import { Button, Content, List, Text } from 'native-base';
-import { JumboButton, RecentGame, Spacer } from '@ui/';
+import { RecentGame, Spacer } from '@ui/';
 
 /* Styles ==================================================================== */
 const styles = StyleSheet.create({

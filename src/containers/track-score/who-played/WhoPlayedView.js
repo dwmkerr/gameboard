@@ -48,7 +48,7 @@ class WhoPlayed extends Component {
   }
 
   renderPlayer = (player, selected) => {
-    let icon = selected
+    const icon = selected
       ? <Icon style={{ color: 'green' }} type="MaterialCommunityIcons" name="checkbox-marked-circle" />
       : <Icon type="MaterialCommunityIcons" name="circle-outline" />;
 
@@ -59,7 +59,6 @@ class WhoPlayed extends Component {
     //  If the player is the current player, we have no icon
     //  and cannot select/deselect them.
     if (firebase.auth().currentUser.uid === player.id) {
-      icon = null;
       action = null;
     }
 
