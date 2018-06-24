@@ -3,7 +3,6 @@ import firebase from 'react-native-firebase';
 export function start() {
   //  When we start tracking the score for a game, we'll create an initial set
   //  of players which include the current user.
-  debugger;
   const {
     uid,
     displayName,

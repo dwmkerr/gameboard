@@ -2,7 +2,8 @@ import moment from 'moment';
 import React from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
-import { Body, Icon, Left, ListItem, Right, Text, Thumbnail } from 'native-base';
+import { Body, Icon, Left, ListItem, Right, Text } from 'native-base';
+import ThumbnailLink from '@components/ui/ThumbnailLink';
 
 function renderWinners(players) {
   const winners = players.filter(p => p.rank === 1).map(p => p.name);
@@ -64,7 +65,7 @@ const RecentGame = ({
     onPress={onPress}
   >
     <Left>
-      <Thumbnail source={{ uri: `https://us-central1-gameboard-560d5.cloudfunctions.net/api/games/${game.id}/thumbnail` }} />
+      <ThumbnailLink uri={game.id ? `https://us-central1-gameboard-560d5.cloudfunctions.net/api/games/${game.id}/thumbnail` : null} />
     </Left>
     <Body>
       <Text>{game.name}</Text>

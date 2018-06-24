@@ -3,6 +3,11 @@ const request = require('request-promise-native');
 const { parseString } = require('xml2js');
 const express = require('express');
 const cors = require('cors');
+const admin = require('firebase-admin');
+
+const apis = require('./apis');
+
+admin.initializeApp();
 
 const parseXml = xml => new Promise((resolve, reject) => {
   parseString(xml, (err, result) => {
@@ -81,6 +86,10 @@ function getGameThumbnail(req, res) {
 app.get('/search', search);
 app.get('/games/:id', getGame);
 app.get('/games/:id/thumbnail', getGameThumbnail);
+app.get('/search-users', apis.searchUsers);
+app.get('/admin/backup', apis.backup);
+app.get('/admin/update-created-at', apis.updateCreatedAt);
+app.get('/admin/update-player-ids', apis.updatePlayerIds);
 // app.get('/:id', (req, res) => res.send(Widgets.getById(req.params.id)));
 // app.post('/', (req, res) => res.send(Widgets.create()));
 // app.put('/:id', (req, res) => res.send(Widgets.update(req.params.id, req.body)));

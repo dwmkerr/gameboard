@@ -6,7 +6,6 @@ import firebase from 'react-native-firebase';
 import { Actions } from 'react-native-router-flux';
 
 import * as LoginActions from '@redux/login/actions';
-import * as GamesActions from '@redux/games/actions';
 import * as FriendsActions from '@redux/friends/actions';
 import * as HistoryActions from '@redux/history/actions';
 import * as UserActions from '@redux/user/actions';
@@ -21,7 +20,6 @@ class App extends Component {
 
     //  These booleans track whether we have the data needed to actually run
     //  the main app.
-    this.gamesReady = null;
     this.historyReady = null;
     this.friendsReady = null;
 
@@ -57,7 +55,7 @@ class App extends Component {
 
   navigateIfRequired = () => {
     //  If we have loaded all data, we can go to the home page.
-    if (this.gamesReady && this.historyReady && this.friendsReady) {
+    if (this.historyReady && this.friendsReady) {
       Actions.home({ type: 'reset' });
     }
   }
@@ -69,26 +67,6 @@ class App extends Component {
   watchCollections = (user) => {
     const { dispatch } = store;
 
-    //  Get the games collection.
-    const gamesRef = firebase.firestore().collection('games');
-    const unsubscribe = gamesRef.onSnapshot((gamesSnapshot) => {
-      const games = [];
-      gamesSnapshot.forEach((game) => {
-        const { name, thumbnailUrl } = game.data();
-        games.push({
-          key: game.id,
-          name,
-          thumbnailUrl,
-        });
-      });
-      dispatch(GamesActions.updateGames(games));
-      this.gamesReady = true;
-      this.navigateIfRequired();
-    }, (error) => {
-      throw new Error(`An error occurred watching games: ${error.message}`);
-    });
-    this.unsubscribeFunctions.push(unsubscribe);
-
     //  Watch the user.
     firebase.firestore().collection('users').doc(user.uid).onSnapshot((doc) => {
       dispatch(UserActions.updateUser(doc.data()));
@@ -97,9 +75,9 @@ class App extends Component {
     //  Watch the history for the user.
     firebase.firestore()
       .collection('played-games')
-      .where('scorerUid', '==', user.uid)
-      .orderBy('createdAt', 'desc')
-      .limit(20)
+      .where(`playerIds.${user.uid}`, '==', true)
+      // .orderBy('createdAt', 'desc')
+      // .limit(20)
       .onSnapshot((snapshot) => {
         const playedGames = [];
         snapshot.forEach((child) => {
@@ -107,6 +85,9 @@ class App extends Component {
           item.key = child.id;
           playedGames.push(item);
         });
+
+        playedGames.sort((a, b) => b.createdAt - a.createdAt);
+
         dispatch(HistoryActions.updateHistory(playedGames));
         this.historyReady = true;
         this.navigateIfRequired();

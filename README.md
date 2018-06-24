@@ -86,6 +86,16 @@ npm run release
 - Setup following this: https://github.com/devfd/react-native-google-signin
 - Then set up signing following this: https://developers.google.com/android/guides/client-auth
 
+## Privacy
+
+This is a hobby project and I make no assuranances about privacy and security. However, to try and ensure users can understand what the potential security implications are, be aware of the following notes.
+
+1. User accounts are created based on Google OAuth, this means if you have a google account you can register.
+2. The app requests your Display Name, Email Address and Thumbnail only.
+3. If you are registered, other users can see your Email, Display Name and Thumbnail if they search for your email address in the 'add friends' screen.
+
+Beyond this no personal data is used and your Google credentials are never stored (they are passed directly to google, using OAuth). In theory there should be very little data the app or server has to potentially be lost or stolen, but again, no assurances are offered.
+
 ## TODO
 
 - [ ] Navbar buttons: use nativebase header

@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import firebase from 'react-native-firebase';
 import PropTypes from 'prop-types';
 import {
-  View,
   StyleSheet,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 // Consts and Libs
-import { AppStyles, AppSizes, AppColors } from '@theme/';
+import { AppSizes, AppColors } from '@theme/';
 
 // Components
-import { Button, Content, List, Text } from 'native-base';
-import { RecentGame, Spacer } from '@ui/';
+import { Content, List } from 'native-base';
+import { RecentGame } from '@ui/';
 
 /* Styles ==================================================================== */
 const styles = StyleSheet.create({

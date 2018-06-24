@@ -22,6 +22,7 @@ import ChooseGame from '@containers/track-score/choose-game/ChooseGameView';
 import WhoPlayed from '@containers/track-score/who-played/WhoPlayedView';
 import WhoWon from '@containers/track-score/who-won/WhoWonView';
 import AddScores from '@containers/track-score/add-scores/AddScoresView';
+import PlayerSearch from '@containers/player-search/PlayerSearch';
 
 import Sidebar from '@containers/sidebar/Sidebar';
 
@@ -41,9 +42,19 @@ const trackScoreSelectGame = store => (game) => {
 async function completeTrackScore(store) {
   const { uid } = firebase.auth().currentUser;
 
+  //  Get the tracked score from redux.
+  const trackedGame = store.getState().trackScore;
+
+  //  Create the map of player ids, only needed to support querying for firebase.
+  const playerIds = trackedGame.players.reduce((acc, val) => ({
+    ...acc,
+    [val.id]: true,
+  }), {});
+
   //  Add the game.
   const playedGame = {
-    ...store.getState().trackScore,
+    ...trackedGame,
+    playerIds,
     scorerUid: uid,
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
   };
@@ -144,6 +155,13 @@ const createRouter = store => (
             back
             icon={() => <Icon name="stats" />}
             clone
+          />
+
+          <Scene
+            key="linkFriend"
+            title="Link Friend"
+            back
+            component={PlayerSearch}
           />
 
           <Scene

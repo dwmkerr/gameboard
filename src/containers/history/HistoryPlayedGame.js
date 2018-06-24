@@ -25,6 +25,7 @@ import moment from 'moment';
 import rankings from '@lib/rankings';
 import { Spacer } from '@components/ui/';
 import Badge from '@components/ui/Badge';
+import ThumbnailLink from '@components/ui/ThumbnailLink';
 
 const styles = StyleSheet.create({
   content: {
@@ -80,11 +81,11 @@ class HistoryPlayedGame extends Component {
   }
 
   deleteGame = (key) => {
-    const del = () => {
-      firebase.firestore()
+    const del = async () => {
+      await firebase.firestore()
         .collection('played-games')
         .doc(key)
-        .remove();
+        .delete();
       Actions.pop();
     };
 
@@ -100,6 +101,37 @@ class HistoryPlayedGame extends Component {
 
   gameStats = (game) => {
     Actions.gameStats({ game });
+  }
+
+  selectPlayerThumbnail = (player) => {
+    const { playedGame } = this.props;
+    //  Create the function we'll call when a player is selected.
+    const onPlayerSelected = async (selectedPlayer) => {
+      //  We're going to update the document. First, remove the old
+      //  player uid from the playerIds, then add the new uid to the playerIds,
+      //  then update the player details.
+      const newPlayerIds = { ...playedGame.playerIds };
+      newPlayerIds[player.uid || player.id] = undefined;
+      newPlayerIds[selectedPlayer.uid] = true;
+      const newPlayers = playedGame.players.filter(p => p !== player);
+      newPlayers.push({
+        ...player, // original fields, like rank and score and name...
+        ...selectedPlayer, // overwritten with new player name, email, uid, image
+      });
+      await firebase.firestore()
+        .collection('played-games')
+        .doc(playedGame.key)
+        .set({
+          playerIds: newPlayerIds,
+          players: newPlayers,
+        }, { merge: true });
+      Actions.pop();
+    };
+
+    Actions.linkFriend({
+      onPlayerSelected,
+      searchText: player.email,
+    });
   }
 
   renderDetail = ({ label, value, onEdit }) => (
@@ -143,13 +175,19 @@ class HistoryPlayedGame extends Component {
           { rankedPlayers.map(p => (
             <ListItem key={p.id} icon>
               <Left>
-                { /* <Thumbnail source={require('../../images/unknown.png')} small /> */ }
-                <Badge rank={p.rank} />
+                <ThumbnailLink
+                  uri={p.imageUri}
+                  onPress={() => this.selectPlayerThumbnail(p)}
+                  small
+                />
               </Left>
               <Body>
                 <Text>{p.name}</Text>
               </Body>
-              <Right><Text>{p.score}</Text></Right>
+              <Right>
+                <Badge rank={p.rank} />
+                <Text>{p.score}</Text>
+              </Right>
             </ListItem>
             ))
           }

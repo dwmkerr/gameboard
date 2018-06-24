@@ -69,17 +69,11 @@ class WhatGame extends Component {
   static defaultProps = {
   }
 
-  constructor() {
-    super();
-    this.state = {
-      loading: false,
-      searchText: null,
-      results: null,
-    };
-  }
-
-  componentWillReceiveProps() {
-  }
+  state = {
+    loading: false,
+    searchText: null,
+    results: null,
+  };
 
   search = async () => {
     console.log(`Search: ${this.state.searchText}`);

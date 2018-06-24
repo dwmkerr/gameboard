@@ -19,6 +19,7 @@ import {
 } from 'native-base';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ThumbnailLink from '@components/ui/ThumbnailLink';
 import * as TrackScoreActions from '@redux/track-score/actions';
 
 class WhoPlayed extends Component {
@@ -64,6 +65,9 @@ class WhoPlayed extends Component {
 
     return (
       <ListItem icon onPress={action} key={player.id}>
+        <Left>
+          <ThumbnailLink uri={player.imageUri} small />
+        </Left>
         <Body>
           <Text>{player.name}</Text>
         </Body>
