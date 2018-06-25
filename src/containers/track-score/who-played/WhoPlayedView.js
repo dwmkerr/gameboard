@@ -39,6 +39,30 @@ class WhoPlayed extends Component {
     searchText: null,
   }
 
+  onCreateFriend = () => {
+    Actions.CreateFriend({
+      onCreateFriend: async (newFriend) => {
+        const { uid } = firebase.auth().currentUser;
+        await firebase.firestore()
+          .collection(`users/${uid}/friends`)
+          .add(newFriend);
+        Actions.pop();
+      },
+    });
+  }
+
+  onFindFriend = () => {
+    Actions.LinkFriend({
+      onPlayerSelected: async (foundFriend) => {
+        const { uid } = firebase.auth().currentUser;
+        await firebase.firestore()
+          .collection(`users/${uid}/friends`)
+          .add(foundFriend);
+        Actions.pop();
+      },
+    });
+  }
+
   search = (searchText) => {
     this.setState({ ...this.state, searchText });
   }
@@ -54,17 +78,17 @@ class WhoPlayed extends Component {
       : <Icon type="MaterialCommunityIcons" name="circle-outline" />;
 
     let action = selected
-      ? () => this.props.trackScoreRemovePlayer(player.id)
+      ? () => this.props.trackScoreRemovePlayer(player.uid)
       : () => this.props.trackScoreAddPlayer(player);
 
     //  If the player is the current player, we have no icon
     //  and cannot select/deselect them.
-    if (firebase.auth().currentUser.uid === player.id) {
+    if (firebase.auth().currentUser.uid === player.uid) {
       action = null;
     }
 
     return (
-      <ListItem icon onPress={action} key={player.id}>
+      <ListItem icon onPress={action} key={player.uid}>
         <Left>
           <ThumbnailLink uri={player.imageUri} small />
         </Left>
@@ -86,9 +110,9 @@ class WhoPlayed extends Component {
 
     //  The available players to add to the game are our set of friends who are
     //  not yet already in the player list.
-    const playerKeys = players.map(p => p.id);
+    const playerKeys = players.map(p => p.uid);
     const availableFriends = friends
-      .filter(f => playerKeys.indexOf(f.id) === -1)
+      .filter(f => playerKeys.indexOf(f.uid) === -1)
       .filter(this.filterFriend);
 
     return (
@@ -107,9 +131,14 @@ class WhoPlayed extends Component {
         <ScrollView>
           <Content>
             <List>
-              <ListItem selected onPress={Actions.AddFriend}>
+              <ListItem selected onPress={this.onFindFriend}>
                 <Left>
-                  <Text>Add Friend</Text>
+                  <Text>Find Friend by Email</Text>
+                </Left>
+              </ListItem>
+              <ListItem selected onPress={this.onCreateFriend}>
+                <Left>
+                  <Text>Create Friend</Text>
                 </Left>
               </ListItem>
               <Separator bordered>

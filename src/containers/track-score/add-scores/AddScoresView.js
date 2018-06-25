@@ -32,27 +32,27 @@ class AddScores extends Component {
   }
 
   renderPlayerScore = rankedPlayer => (
-    <Player key={rankedPlayer.id} player={rankedPlayer} hideIcon>
+    <Player key={rankedPlayer.uid} player={rankedPlayer} hideIcon>
       <View style={{ flex: 0, width: 80 }}>
         <Input
           regular
           keyboardType="numeric"
           placeholder="Score"
-          onChangeText={text => this.props.trackScoreSetPlayerScore(rankedPlayer.id, text)}
+          onChangeText={text => this.props.trackScoreSetPlayerScore(rankedPlayer.uid, text)}
         />
       </View>
     </Player>
   )
 
   renderPlayerOrder = rankedPlayer => (
-    <Player key={rankedPlayer.id} player={rankedPlayer} hideIcon>
+    <Player key={rankedPlayer.uid} player={rankedPlayer} hideIcon>
       <View style={{ flex: 0, width: 80 }}>
         <Input
           regular
           keyboardType="numeric"
           placeholder="Order"
           onChangeText={
-            text => this.props.trackScoreSetPlayerOrder(rankedPlayer.id, Number.parseInt(text, 10))
+            text => this.props.trackScoreSetPlayerOrder(rankedPlayer.uid, Number.parseInt(text, 10))
           }
         />
       </View>

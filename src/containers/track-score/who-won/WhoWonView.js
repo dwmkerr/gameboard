@@ -25,9 +25,9 @@ class WhoWon extends Component {
 
   createMoveUpHandler = (player, nextAvailableRank) => () => {
     if (!Number.isInteger(player.rank)) {
-      this.props.trackScoreSetPlayerRank(player.id, nextAvailableRank);
+      this.props.trackScoreSetPlayerRank(player.uid, nextAvailableRank);
     } else {
-      this.props.trackScoreSetPlayerRank(player.id, player.rank - 1);
+      this.props.trackScoreSetPlayerRank(player.uid, player.rank - 1);
     }
   }
 
@@ -43,9 +43,9 @@ class WhoWon extends Component {
     //     2    - Second Place : Player 1     <--- move down from here goes to losers
     //     null - Losers       : Player 2
     if (player.rank === (nextAvailableRank - 1) || player.rank > nextAvailableRank) {
-      this.props.trackScoreSetPlayerRank(player.id, null);
+      this.props.trackScoreSetPlayerRank(player.uid, null);
     } else {
-      this.props.trackScoreSetPlayerRank(player.id, player.rank + 1);
+      this.props.trackScoreSetPlayerRank(player.uid, player.rank + 1);
     }
   }
 
@@ -73,7 +73,7 @@ class WhoWon extends Component {
             Object.keys(rankedPlayers).map(key => (
               <GameRankZone key={key} rank={rankings.rankName(key)}>
                 {rankedPlayers[key].map(player => (
-                  <Player key={player.id} player={player} hideIcon>
+                  <Player key={player.uid} player={player} hideIcon>
                     { player.rank !== null && <PlayerButton iconName="md-arrow-down" onPress={this.createMoveDownHandler(player, nextAvailableRank)} /> }
                     { player.rank !== 1 && <PlayerButton iconName="md-arrow-up" onPress={this.createMoveUpHandler(player, nextAvailableRank)} /> }
                   </Player>

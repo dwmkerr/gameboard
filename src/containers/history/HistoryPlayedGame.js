@@ -128,7 +128,7 @@ class HistoryPlayedGame extends Component {
       Actions.pop();
     };
 
-    Actions.linkFriend({
+    Actions.LinkFriend({
       onPlayerSelected,
       searchText: player.email,
     });

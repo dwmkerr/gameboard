@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 });
 
 const Player = ({ player, hideIcon, children }) => (
-  <Card key={player.id} style={styles.playerCard}>
+  <Card key={player.uid} style={styles.playerCard}>
     <CardItem style={styles.playerCardItem}>
       { (!hideIcon) && <Thumbnail source={{ uri: player.imageUri }} style={{ flex: 0 }} /> }
       <Body style={styles.bodyContainer}>
@@ -47,7 +47,7 @@ const Player = ({ player, hideIcon, children }) => (
 
 Player.propTypes = {
   player: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    uid: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     email: PropTypes.string,
     imageUri: PropTypes.string,

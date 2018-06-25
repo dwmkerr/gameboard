@@ -22,7 +22,8 @@ import ChooseGame from '@containers/track-score/choose-game/ChooseGameView';
 import WhoPlayed from '@containers/track-score/who-played/WhoPlayedView';
 import WhoWon from '@containers/track-score/who-won/WhoWonView';
 import AddScores from '@containers/track-score/add-scores/AddScoresView';
-import PlayerSearch from '@containers/player-search/PlayerSearch';
+import LinkFriend from '@containers/link-friend/LinkFriend';
+import CreateFriend from '@containers/create-friend/CreateFriend';
 
 import Sidebar from '@containers/sidebar/Sidebar';
 
@@ -48,7 +49,7 @@ async function completeTrackScore(store) {
   //  Create the map of player ids, only needed to support querying for firebase.
   const playerIds = trackedGame.players.reduce((acc, val) => ({
     ...acc,
-    [val.id]: true,
+    [val.uid]: true,
   }), {});
 
   //  Add the game.
@@ -71,15 +72,6 @@ const reducerCreate = (params) => {
   };
 };
 
-/*
-    <Stack
-          key="root"
-                drawer="true"
-                      drawerIcon={<Icon type="MaterialIcons" name="menu" />}
-                            drawerWidth={300}
-                                >
-
-*/
 const createRouter = store => (
   <Router
     createReducer={reducerCreate}
@@ -158,10 +150,10 @@ const createRouter = store => (
           />
 
           <Scene
-            key="linkFriend"
-            title="Link Friend"
+            key="LinkFriend"
+            title="Link Friend by Email"
             back
-            component={PlayerSearch}
+            component={LinkFriend}
           />
 
           <Scene
@@ -175,6 +167,14 @@ const createRouter = store => (
             key="AddFriend"
             title="Add Friend"
             component={AddFriend}
+            back
+            icon={() => <Icon name="add" />}
+          />
+
+          <Scene
+            key="CreateFriend"
+            title="Create Friend"
+            component={CreateFriend}
             back
             icon={() => <Icon name="add" />}
           />

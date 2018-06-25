@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 });
 
 const RankedPlayer = ({ player, moveUp, moveDown }) => (
-  <View style={styles.playerContainer} key={player.id}>
+  <View style={styles.playerContainer} key={player.uid}>
     <View style={{ flexDirection: 'row' }}>
       <View style={{ flex: 1 }}>
         <Text>{player.name}</Text>

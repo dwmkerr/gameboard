@@ -11,7 +11,7 @@ export function start() {
   } = firebase.auth().currentUser;
 
   const initialPlayers = [{
-    id: uid,
+    uid,
     name: displayName,
     email,
     imageUri: photoURL,
@@ -36,7 +36,7 @@ export function setGame(game) {
 
 export function addPlayer(player) {
   //  Whenever we add a player, if we don't have an id, set one.
-  if (!player.id) Object.assign(player, { id: (player.email || player.name) });
+  if (!player.uid) Object.assign(player, { uid: (player.email || player.name) });
   if (player.rank === undefined) Object.assign(player, { rank: null });
 
   return {
@@ -52,23 +52,23 @@ export function removePlayer(playerId) {
   };
 }
 
-export function setPlayerRank(id, rank) {
+export function setPlayerRank(uid, rank) {
   return {
     type: 'TRACK_SCORE_UPDATE_PLAYER',
-    data: { id, changes: { rank } },
+    data: { uid, changes: { rank } },
   };
 }
 
-export function setPlayerScore(id, score) {
+export function setPlayerScore(uid, score) {
   return {
     type: 'TRACK_SCORE_UPDATE_PLAYER',
-    data: { id, changes: { score } },
+    data: { uid, changes: { score } },
   };
 }
 
-export function setPlayerOrder(id, order) {
+export function setPlayerOrder(uid, order) {
   return {
     type: 'TRACK_SCORE_UPDATE_PLAYER',
-    data: { id, changes: { order } },
+    data: { uid, changes: { order } },
   };
 }

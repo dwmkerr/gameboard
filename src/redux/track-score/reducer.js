@@ -33,17 +33,17 @@ export default function trackScoreReducer(state = initialState, action) {
     case 'TRACK_SCORE_REMOVE_PLAYER': {
       return {
         ...state,
-        players: state.players.filter(p => p.id !== action.data),
+        players: state.players.filter(p => p.uid !== action.data),
       };
     }
 
     case 'TRACK_SCORE_UPDATE_PLAYER': {
-      const { id, changes } = action.data;
+      const { uid, changes } = action.data;
 
       return {
         ...state,
         players: state.players.map((p) => {
-          if (p.id !== id) return p;
+          if (p.uid !== uid) return p;
           return { ...p, ...changes };
         }),
       };

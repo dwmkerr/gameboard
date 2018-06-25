@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
-import { Icon, Item, Label, Input, Text } from 'native-base';
+import { Icon, Item, Label, Input } from 'native-base';
 
 const FormInput = (props) => {
   const {
@@ -15,21 +14,12 @@ const FormInput = (props) => {
   } = props;
   const showError = touched && !!error;
 
-  const renderError = () => (
-    <View>
-      <Text>{error}</Text>
-      <Icon name="close-circle" />
-    </View>
-  );
-
   return (
-    <View>
-      {label ? <Label>{label}</Label> : null}
-      <Item error={showError} regular>
-        <Input {...input} {...other} />
-        {showError && renderError()}
-      </Item>
-    </View>
+    <Item error={showError} inlineLabel>
+      <Label>{label}</Label>
+      <Input {...input} {...other} />
+      {showError && <Icon name="close-circle" /> }
+    </Item>
   );
 };
 

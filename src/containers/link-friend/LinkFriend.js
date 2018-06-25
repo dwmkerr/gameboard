@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Body,
@@ -14,12 +14,13 @@ import {
   List,
   ListItem,
   Right,
+  Separator,
   Spinner,
   Text,
   Thumbnail,
 } from 'native-base';
 
-class PlayerSearch extends Component {
+class LinkFriend extends Component {
   static propTypes = {
     onPlayerSelected: PropTypes.func.isRequired,
     searchText: PropTypes.string,
@@ -92,6 +93,20 @@ class PlayerSearch extends Component {
     }
   }
 
+
+  renderSearchResults = () => {
+    if (!this.state.results) return null;
+
+    return (
+      <View>
+        <Separator bordered>
+          <Text>Search Results</Text>
+        </Separator>
+        { this.state.results.map(this.renderPlayer) }
+      </View>
+    );
+  }
+
   renderPlayer = player => (
     <ListItem
       key={player.uid}
@@ -131,7 +146,7 @@ class PlayerSearch extends Component {
         <Content>
           <List>
             { this.state.loading && <Spinner /> }
-            { this.state.results && this.state.results.map(this.renderPlayer) }
+            { this.renderSearchResults() }
             { this.state.notFound && <Text>Player not found</Text> }
           </List>
         </Content>
@@ -140,4 +155,4 @@ class PlayerSearch extends Component {
   )
 }
 
-export default PlayerSearch;
+export default LinkFriend;
