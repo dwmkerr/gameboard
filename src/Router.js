@@ -7,8 +7,7 @@ import {
   Router,
   Scene,
 } from 'react-native-router-flux';
-import { Button, Icon, Right, Text } from 'native-base';
-
+import { Icon } from 'native-base';
 
 // Scenes
 import AddFriend from '@containers/add-friend/AddFriendContainer';
@@ -26,6 +25,12 @@ import LinkFriend from '@containers/link-friend/LinkFriend';
 import CreateFriend from '@containers/create-friend/CreateFriend';
 
 import Sidebar from '@containers/sidebar/Sidebar';
+import {
+  BackLeftButton,
+  NextRightButton,
+  TrackScoreDoneButton,
+  TrackScoreRightButton,
+} from '@components/NavBarButtons';
 
 import * as TrackScoreActions from '@redux/track-score/actions';
 
@@ -86,7 +91,7 @@ const createRouter = store => (
 
       <Drawer
         key="home"
-        drawerIcon={<Icon type="MaterialIcons" name="menu" />}
+        drawerIcon={<Icon style={{ fontSize: 24, color: '#277df6' }} type="MaterialIcons" name="menu" />}
         drawerWidth={260}
         contentComponent={Sidebar}
       >
@@ -98,7 +103,7 @@ const createRouter = store => (
             title="GameBoard"
             component={Home}
             icon={() => <Icon name="home" />}
-            renderRightButton={() => <Button transparent onPress={() => trackScore(store)}><Icon type="MaterialIcons" name="playlist-add" /></Button>}
+            renderRightButton={() => <TrackScoreRightButton onPress={() => trackScore(store)} />}
           />
 
           <Scene
@@ -106,6 +111,7 @@ const createRouter = store => (
             title="Score: Choose Game"
             component={ChooseGame}
             back
+            renderBackButton={() => <BackLeftButton />}
             onSelectGame={trackScoreSelectGame(store)}
           />
 
@@ -114,7 +120,8 @@ const createRouter = store => (
             title="Score: Players"
             component={WhoPlayed}
             back
-            renderRightButton={() => <Right><Button transparent onPress={Actions.whoWon}><Text>Next</Text><Icon name="arrow-forward" /></Button></Right>}
+            renderBackButton={() => <BackLeftButton />}
+            renderRightButton={() => <NextRightButton onPress={Actions.whoWon} />}
           />
 
           <Scene
@@ -122,7 +129,8 @@ const createRouter = store => (
             title="Score: Winners"
             component={WhoWon}
             back
-            renderRightButton={() => <Right><Button transparent onPress={Actions.addScores}><Text>Next</Text><Icon name="arrow-forward" /></Button></Right>}
+            renderBackButton={() => <BackLeftButton />}
+            renderRightButton={() => <NextRightButton onPress={Actions.addScores} />}
           />
 
           <Scene
@@ -130,7 +138,11 @@ const createRouter = store => (
             title="Score: Extras"
             component={AddScores}
             back
-            renderRightButton={() => <Right><Button transparent onPress={() => completeTrackScore(store)}><Text>Done</Text><Icon name="arrow-forward" /></Button></Right>}
+            renderBackButton={() => <BackLeftButton />}
+            renderRightButton={() => (
+              <TrackScoreDoneButton
+                onPress={() => completeTrackScore(store)}
+              />)}
           />
 
           <Scene
@@ -138,6 +150,7 @@ const createRouter = store => (
             title="Game Stats"
             component={GameStats}
             back
+            renderBackButton={() => <BackLeftButton />}
             icon={() => <Icon name="stats" />}
           />
 
@@ -146,6 +159,7 @@ const createRouter = store => (
             title="History"
             component={HistoryPlayedGame}
             back
+            renderBackButton={() => <BackLeftButton />}
             icon={() => <Icon name="stats" />}
             clone
           />
@@ -154,6 +168,7 @@ const createRouter = store => (
             key="LinkFriend"
             title="Link Friend by Email"
             back
+            renderBackButton={() => <BackLeftButton />}
             component={LinkFriend}
           />
 
@@ -161,6 +176,7 @@ const createRouter = store => (
             key="linkGame"
             title="Search BGG"
             back
+            renderBackButton={() => <BackLeftButton />}
             component={ChooseGame}
           />
 
@@ -169,6 +185,7 @@ const createRouter = store => (
             title="Add Friend"
             component={AddFriend}
             back
+            renderBackButton={() => <BackLeftButton />}
             icon={() => <Icon name="add" />}
           />
 
@@ -177,6 +194,7 @@ const createRouter = store => (
             title="Create Friend"
             component={CreateFriend}
             back
+            renderBackButton={() => <BackLeftButton />}
             icon={() => <Icon name="add" />}
           />
 
@@ -185,6 +203,7 @@ const createRouter = store => (
             title="Choose Game"
             component={ChooseGame}
             back
+            renderBackButton={() => <BackLeftButton />}
           />
 
         </Scene>

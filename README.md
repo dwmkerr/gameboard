@@ -28,6 +28,28 @@ The app interacts with Firebase in the following way:
 
 This makes interfacing with the data very easy. Just interact with Firebase, the appropriate collections will be updated and the store will change as a result of that.
 
+#### Containers
+
+Each of the components in `./src/containers` is essentially a screen. It will often take redux state, and often fire off commands.
+
+Scenes will normally need to be provided with some kind of handler to deal with navigation. For example, the 'Link Friend' container will need an 'onLinkFriend' function, which will normally commit the action and handle subsequent navigation. This allows scenes to be transitioned programatically:
+
+```js
+  onFindFriend = () => {
+    Actions.LinkFriend({
+      onPlayerSelected: async (foundFriend) => {
+        const { uid } = firebase.auth().currentUser;
+        firebase.firestore()
+          .collection(`users/${uid}/friends`)
+          .add(foundFriend);
+        Actions.pop();
+      },
+    });
+  }
+```
+
+In the example above we can see that we can programatically navigate to a scene and then deal with the result in our own way.
+
 #### Navigation
 
 - Handled via [`react-native-router-flux`](https://github.com/aksonov/react-native-router-flux)
