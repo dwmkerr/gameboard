@@ -82,8 +82,7 @@ class LinkFriend extends Component {
       }];
       this.setState({ ...this.state, loading: false, results });
     } catch (err) {
-      //  TODO error toast.
-      console.log('Search error', err);
+      //  TODO proper error handling.
       this.setState({
         ...this.state,
         loading: false,

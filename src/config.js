@@ -6,6 +6,9 @@ export default {
   // Build Configuration - eg. Debug or Release?
   DEV: __DEV__,
 
+  //  Base path for all API calls.
+  apiRoot: 'https://us-central1-gameboard-560d5.cloudfunctions.net/api',
+
   // Google Analytics - uses a 'dev' account while we're testing
   gaTrackingId: (__DEV__) ? 'UA-111825291-4' : 'UA-111825291-1',
 

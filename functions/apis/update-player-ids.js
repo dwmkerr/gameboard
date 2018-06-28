@@ -10,9 +10,20 @@ function updatePlayerIds(req, res) {
         //  Set the playerIds to have the scorerUid.
         const playedGame = doc.data();
         const playerIds = playedGame.playerIds || {};
+
+        //  Copy the players over. If there are players with a id, replace
+        //  it with a ud.
+        const players = playedGame.players.map(p => {
+          const newPlayer = Object.assign({ }, p, {
+            uid: p.uid || p.id,
+          });
+          delete newPlayer.id;
+          return newPlayer;
+        });
         playerIds[playedGame.scorerUid] = true;
         promises.push(admin.firestore().collection('played-games').doc(doc.id)
           .set({
+            players,
             playerIds
           }, { merge: true }));
       });
