@@ -196,7 +196,6 @@ class WhatGame extends Component {
       <Container>
         <Header searchBar rounded>
           <Item>
-            <Icon name="ios-search" />
             <Input
               placeholder="Search"
               onChangeText={searchText => this.setState({ ...this.state, searchText })}
