@@ -22,21 +22,23 @@
 
 #import "Firestore/Source/Model/FSTDocument.h"
 #import "Firestore/Source/Model/FSTMutation.h"
-#import "Firestore/Source/Util/FSTAssert.h"
 
+#include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
+
+using firebase::firestore::model::BatchId;
 using firebase::firestore::model::DocumentKey;
 using firebase::firestore::model::DocumentKeyHash;
-using firebase::firestore::model::SnapshotVersion;
 using firebase::firestore::model::DocumentKeySet;
 using firebase::firestore::model::DocumentVersionMap;
+using firebase::firestore::model::SnapshotVersion;
 
 NS_ASSUME_NONNULL_BEGIN
 
-const FSTBatchID kFSTBatchIDUnknown = -1;
+const BatchId kFSTBatchIDUnknown = -1;
 
 @implementation FSTMutationBatch
 
-- (instancetype)initWithBatchID:(FSTBatchID)batchID
+- (instancetype)initWithBatchID:(BatchId)batchID
                  localWriteTime:(FIRTimestamp *)localWriteTime
                       mutations:(NSArray<FSTMutation *> *)mutations {
   self = [super init];
@@ -76,21 +78,20 @@ const FSTBatchID kFSTBatchIDUnknown = -1;
 - (FSTMaybeDocument *_Nullable)applyTo:(FSTMaybeDocument *_Nullable)maybeDoc
                            documentKey:(const DocumentKey &)documentKey
                    mutationBatchResult:(FSTMutationBatchResult *_Nullable)mutationBatchResult {
-  FSTAssert(!maybeDoc || [maybeDoc.key isEqualToKey:documentKey],
-            @"applyTo: key %s doesn't match maybeDoc key %s", documentKey.ToString().c_str(),
-            maybeDoc.key.ToString().c_str());
+  HARD_ASSERT(!maybeDoc || maybeDoc.key == documentKey,
+              "applyTo: key %s doesn't match maybeDoc key %s", documentKey.ToString(),
+              maybeDoc.key.ToString());
   FSTMaybeDocument *baseDoc = maybeDoc;
   if (mutationBatchResult) {
-    FSTAssert(mutationBatchResult.mutationResults.count == self.mutations.count,
-              @"Mismatch between mutations length (%lu) and results length (%lu)",
-              (unsigned long)self.mutations.count,
-              (unsigned long)mutationBatchResult.mutationResults.count);
+    HARD_ASSERT(mutationBatchResult.mutationResults.count == self.mutations.count,
+                "Mismatch between mutations length (%s) and results length (%s)",
+                self.mutations.count, mutationBatchResult.mutationResults.count);
   }
 
   for (NSUInteger i = 0; i < self.mutations.count; i++) {
     FSTMutation *mutation = self.mutations[i];
     FSTMutationResult *_Nullable mutationResult = mutationBatchResult.mutationResults[i];
-    if ([mutation.key isEqualToKey:documentKey]) {
+    if (mutation.key == documentKey) {
       maybeDoc = [mutation applyTo:maybeDoc
                       baseDocument:baseDoc
                     localWriteTime:self.localWriteTime
@@ -168,9 +169,9 @@ const FSTBatchID kFSTBatchIDUnknown = -1;
                   commitVersion:(SnapshotVersion)commitVersion
                 mutationResults:(NSArray<FSTMutationResult *> *)mutationResults
                     streamToken:(nullable NSData *)streamToken {
-  FSTAssert(batch.mutations.count == mutationResults.count,
-            @"Mutations sent %lu must equal results received %lu",
-            (unsigned long)batch.mutations.count, (unsigned long)mutationResults.count);
+  HARD_ASSERT(batch.mutations.count == mutationResults.count,
+              "Mutations sent %s must equal results received %s", batch.mutations.count,
+              mutationResults.count);
 
   DocumentVersionMap docVersions;
   NSArray<FSTMutation *> *mutations = batch.mutations;

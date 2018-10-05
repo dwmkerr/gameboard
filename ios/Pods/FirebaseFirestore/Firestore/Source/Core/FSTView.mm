@@ -24,12 +24,13 @@
 #import "Firestore/Source/Model/FSTDocumentSet.h"
 #import "Firestore/Source/Model/FSTFieldValue.h"
 #import "Firestore/Source/Remote/FSTRemoteEvent.h"
-#import "Firestore/Source/Util/FSTAssert.h"
 
 #include "Firestore/core/src/firebase/firestore/model/document_key.h"
+#include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
 
 using firebase::firestore::model::DocumentKey;
 using firebase::firestore::model::DocumentKeySet;
+using firebase::firestore::model::OnlineState;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -109,7 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
     return NO;
   }
   FSTLimboDocumentChange *otherChange = (FSTLimboDocumentChange *)other;
-  return self.type == otherChange.type && [self.key isEqual:otherChange.key];
+  return self.type == otherChange.type && self.key == otherChange.key;
 }
 
 - (NSUInteger)hash {
@@ -235,8 +236,8 @@ static NSComparisonResult FSTCompareDocumentViewChangeTypes(FSTDocumentViewChang
       newDoc = (FSTDocument *)maybeNewDoc;
     }
     if (newDoc) {
-      FSTAssert([key isEqual:newDoc.key], @"Mismatching key in document changes: %@ != %s", key,
-                newDoc.key.ToString().c_str());
+      HARD_ASSERT([key isEqual:newDoc.key], "Mismatching key in document changes: %s != %s", key,
+                  newDoc.key.ToString());
       if (![self.query matchesDocument:newDoc]) {
         newDoc = nil;
       }
@@ -300,8 +301,8 @@ static NSComparisonResult FSTCompareDocumentViewChangeTypes(FSTDocumentViewChang
     }
   }
 
-  FSTAssert(!needsRefill || !previousChanges,
-            @"View was refilled using docs that themselves needed refilling.");
+  HARD_ASSERT(!needsRefill || !previousChanges,
+              "View was refilled using docs that themselves needed refilling.");
 
   return [[FSTViewDocumentChanges alloc] initWithDocumentSet:newDocumentSet
                                                    changeSet:changeSet
@@ -315,7 +316,7 @@ static NSComparisonResult FSTCompareDocumentViewChangeTypes(FSTDocumentViewChang
 
 - (FSTViewChange *)applyChangesToDocuments:(FSTViewDocumentChanges *)docChanges
                               targetChange:(nullable FSTTargetChange *)targetChange {
-  FSTAssert(!docChanges.needsRefill, @"Cannot apply changes that need a refill");
+  HARD_ASSERT(!docChanges.needsRefill, "Cannot apply changes that need a refill");
 
   FSTDocumentSet *oldDocuments = self.documentSet;
   self.documentSet = docChanges.documentSet;
@@ -355,8 +356,8 @@ static NSComparisonResult FSTCompareDocumentViewChangeTypes(FSTDocumentViewChang
   }
 }
 
-- (FSTViewChange *)applyChangedOnlineState:(FSTOnlineState)onlineState {
-  if (self.isCurrent && onlineState == FSTOnlineStateOffline) {
+- (FSTViewChange *)applyChangedOnlineState:(OnlineState)onlineState {
+  if (self.isCurrent && onlineState == OnlineState::Offline) {
     // If we're offline, set `current` to NO and then call applyChanges to refresh our syncState
     // and generate an FSTViewChange as appropriate. We are guaranteed to get a new FSTTargetChange
     // that sets `current` back to YES once the client is back online.
@@ -401,28 +402,18 @@ static NSComparisonResult FSTCompareDocumentViewChangeTypes(FSTDocumentViewChang
  */
 - (void)applyTargetChange:(nullable FSTTargetChange *)targetChange {
   if (targetChange) {
-    FSTTargetMapping *targetMapping = targetChange.mapping;
-    if ([targetMapping isKindOfClass:[FSTResetMapping class]]) {
-      _syncedDocuments = ((FSTResetMapping *)targetMapping).documents;
-    } else if ([targetMapping isKindOfClass:[FSTUpdateMapping class]]) {
-      for (const DocumentKey &key : ((FSTUpdateMapping *)targetMapping).addedDocuments) {
-        _syncedDocuments = _syncedDocuments.insert(key);
-      }
-      for (const DocumentKey &key : ((FSTUpdateMapping *)targetMapping).removedDocuments) {
-        _syncedDocuments = _syncedDocuments.erase(key);
-      }
+    for (const DocumentKey &key : targetChange.addedDocuments) {
+      _syncedDocuments = _syncedDocuments.insert(key);
+    }
+    for (const DocumentKey &key : targetChange.modifiedDocuments) {
+      HARD_ASSERT(_syncedDocuments.find(key) != _syncedDocuments.end(),
+                  "Modified document %s not found in view.", key.ToString());
+    }
+    for (const DocumentKey &key : targetChange.removedDocuments) {
+      _syncedDocuments = _syncedDocuments.erase(key);
     }
 
-    switch (targetChange.currentStatusUpdate) {
-      case FSTCurrentStatusUpdateMarkCurrent:
-        self.current = YES;
-        break;
-      case FSTCurrentStatusUpdateMarkNotCurrent:
-        self.current = NO;
-        break;
-      case FSTCurrentStatusUpdateNone:
-        break;
-    }
+    self.current = targetChange.current;
   }
 }
 
@@ -476,7 +467,7 @@ static inline int DocumentViewChangeTypePosition(FSTDocumentViewChangeType chang
       // equivalently.
       return 2;
     default:
-      FSTCFail(@"Unknown FSTDocumentViewChangeType %lu", (unsigned long)changeType);
+      HARD_FAIL("Unknown FSTDocumentViewChangeType %s", changeType);
   }
 }
 

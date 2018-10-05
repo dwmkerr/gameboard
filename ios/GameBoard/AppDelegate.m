@@ -13,7 +13,7 @@
 #import <React/RCTRootView.h>
 
 #import <Firebase.h>
-#import <RNGoogleSignin/RNGoogleSignin.h>
+#import "RNGoogleSignin.h"
 
 @implementation AppDelegate
 

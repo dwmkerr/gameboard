@@ -19,6 +19,7 @@
 #import <GRPCClient/GRPCCall.h>
 
 #include <map>
+#include <utility>
 #include <vector>
 
 #import "FIRFirestoreErrors.h"
@@ -26,14 +27,16 @@
 #import "Firestore/Source/Model/FSTDocument.h"
 #import "Firestore/Source/Model/FSTMutation.h"
 #import "Firestore/Source/Remote/FSTDatastore.h"
-#import "Firestore/Source/Util/FSTAssert.h"
 #import "Firestore/Source/Util/FSTUsageValidation.h"
 
 #include "Firestore/core/src/firebase/firestore/model/document_key.h"
 #include "Firestore/core/src/firebase/firestore/model/document_key_set.h"
 #include "Firestore/core/src/firebase/firestore/model/precondition.h"
 #include "Firestore/core/src/firebase/firestore/model/snapshot_version.h"
+#include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
 
+using firebase::firestore::core::ParsedSetData;
+using firebase::firestore::core::ParsedUpdateData;
 using firebase::firestore::model::DocumentKey;
 using firebase::firestore::model::Precondition;
 using firebase::firestore::model::SnapshotVersion;
@@ -79,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
  * writes sent to the backend.
  */
 - (BOOL)recordVersionForDocument:(FSTMaybeDocument *)doc error:(NSError **)error {
-  FSTAssert(error != nil, @"nil error parameter");
+  HARD_ASSERT(error != nil, "nil error parameter");
   *error = nil;
   SnapshotVersion docVersion = doc.version;
   if ([doc isKindOfClass:[FSTDeletedDocument class]]) {
@@ -92,13 +95,12 @@ NS_ASSUME_NONNULL_BEGIN
     return YES;
   } else {
     if (error) {
-      *error =
-          [NSError errorWithDomain:FIRFirestoreErrorDomain
-                              code:FIRFirestoreErrorCodeFailedPrecondition
-                          userInfo:@{
-                            NSLocalizedDescriptionKey :
-                                @"A document cannot be read twice within a single transaction."
-                          }];
+      *error = [NSError errorWithDomain:FIRFirestoreErrorDomain
+                                   code:FIRFirestoreErrorCodeFailedPrecondition
+                               userInfo:@{
+                                 NSLocalizedDescriptionKey :
+                                     @"A document cannot be read twice within a single transaction."
+                               }];
     }
     return NO;
   }
@@ -180,19 +182,18 @@ NS_ASSUME_NONNULL_BEGIN
   }
 }
 
-- (void)setData:(FSTParsedSetData *)data forDocument:(const DocumentKey &)key {
-  [self writeMutations:[data mutationsWithKey:key
-                                 precondition:[self preconditionForDocumentKey:key]]];
+- (void)setData:(ParsedSetData &&)data forDocument:(const DocumentKey &)key {
+  [self writeMutations:std::move(data).ToMutations(key, [self preconditionForDocumentKey:key])];
 }
 
-- (void)updateData:(FSTParsedUpdateData *)data forDocument:(const DocumentKey &)key {
+- (void)updateData:(ParsedUpdateData &&)data forDocument:(const DocumentKey &)key {
   NSError *error = nil;
   const Precondition precondition = [self preconditionForUpdateWithDocumentKey:key error:&error];
   if (precondition.IsNone()) {
-    FSTAssert(error, @"Got nil precondition, but error was not set");
+    HARD_ASSERT(error, "Got nil precondition, but error was not set");
     self.lastWriteError = error;
   } else {
-    [self writeMutations:[data mutationsWithKey:key precondition:precondition]];
+    [self writeMutations:std::move(data).ToMutations(key, precondition)];
   }
 }
 

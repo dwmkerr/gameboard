@@ -9,7 +9,6 @@ import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
 import com.testfairy.react.TestFairyPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -35,8 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
             new RNFirebaseAuthPackage(),
             new RNFirebaseDatabasePackage(),
             new RNFirebaseFirestorePackage(),
-            new TestFairyPackage(),
-            new VectorIconsPackage()
+            new TestFairyPackage()
       );
     }
 
