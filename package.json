@@ -44,7 +44,7 @@
     "react-native-rename": "^2.2.2",
     "react-native-router-flux": "^4.0.1",
     "react-native-side-menu": "^1.1.3",
-    "react-native-tab-view": "1.0.0",
+    "react-native-tab-view": "1.2.0",
     "react-native-testfairy": "^2.6.0",
     "react-native-vector-icons": "^5.0.0",
     "react-redux": "^5.0.1",
