@@ -8,7 +8,7 @@ export const googleLogin = async (idToken) => {
 
   //  Now sign in with the google credential.
   try {
-    await firebase.auth().signInAndRetrieveDataWithCredential(credential);
+    await firebase.auth().signInWithCredential(credential);
   } catch (error) {
     const {
       errorCode,
