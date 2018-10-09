@@ -42,7 +42,6 @@
 		48A85A3B6762CE6504C7EF8D /* libPods-GameBoard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A062451F2ED00CF2F7CEA07 /* libPods-GameBoard.a */; };
 		48AE538E7B257550DE751338 /* libPods-GameBoard-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 116CC148024842ACF43E7CE1 /* libPods-GameBoard-tvOS.a */; };
 		551781E9200DCE3500DF452A /* libReactNativeTestFairy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C036DC200D9303002999DB /* libReactNativeTestFairy.a */; };
-		557BC02C2167C99E000A61A7 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551665DE200E4ADA0057F4D5 /* libRNFirebase.a */; };
 		5585AAF82167A6E000DA1F6B /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5579D9AC200E5E2C00E8C878 /* libRNGoogleSignin.a */; };
 		55BF40F220BCFBC80022A948 /* GoogleAppUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BF40EC20BCFBC70022A948 /* GoogleAppUtilities.framework */; };
 		55BF40F320BCFBC80022A948 /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BF40ED20BCFBC70022A948 /* GoogleSignIn.framework */; };
@@ -229,9 +228,9 @@
 			remoteGlobalIDString = 3D3CD9181DE5FBD800167DC4;
 			remoteInfo = "jschelpers-tvOS";
 		};
-		551665DD200E4ADA0057F4D5 /* PBXContainerItemProxy */ = {
+		55155179216C4FDC00A963BA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = ABDBC2229D5A42079A260ECB /* RNFirebase.xcodeproj */;
+			containerPortal = F53C61EA0EA241DAAC6CE288 /* RNFirebase.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNFirebase;
@@ -428,7 +427,6 @@
 		97AFC34D45F943CBBA76DD9A /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		9F166F3E7EC7446081D2E379 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		AB755B283BB240298916C6C4 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
-		ABDBC2229D5A42079A260ECB /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B208A539CE2A404E9CCDC3E5 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		B53E805DF3294F73A5F458BC /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -441,6 +439,7 @@
 		DBBABB95D0B5A8CFD1CD3604 /* Pods-GameBoard-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameBoard-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GameBoard-tvOSTests/Pods-GameBoard-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E34822D431D14B55BB18FD7F /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		F32D0DE2C26F4AE9BA1DE93D /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
+		F53C61EA0EA241DAAC6CE288 /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
 		FDC62FD24A4162734EB99867 /* libPods-GameBoardTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GameBoardTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -458,7 +457,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				557BC02C2167C99E000A61A7 /* libRNFirebase.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				55DE4A50216B9D6E00D67A00 /* libRCTAnimation.a in Frameworks */,
@@ -652,10 +650,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		551665DA200E4ADA0057F4D5 /* Products */ = {
+		55155176216C4FDC00A963BA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				551665DE200E4ADA0057F4D5 /* libRNFirebase.a */,
+				5515517A216C4FDC00A963BA /* libRNFirebase.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -736,8 +734,8 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				5DE2A164342D4FD5A58068FA /* ReactNativeTestFairy.xcodeproj */,
-				ABDBC2229D5A42079A260ECB /* RNFirebase.xcodeproj */,
 				2B3BE322E2D447769F3D5CCB /* RNGoogleSignin.xcodeproj */,
+				F53C61EA0EA241DAAC6CE288 /* RNFirebase.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -977,8 +975,8 @@
 					ProjectRef = 5DE2A164342D4FD5A58068FA /* ReactNativeTestFairy.xcodeproj */;
 				},
 				{
-					ProductGroup = 551665DA200E4ADA0057F4D5 /* Products */;
-					ProjectRef = ABDBC2229D5A42079A260ECB /* RNFirebase.xcodeproj */;
+					ProductGroup = 55155176216C4FDC00A963BA /* Products */;
+					ProjectRef = F53C61EA0EA241DAAC6CE288 /* RNFirebase.xcodeproj */;
 				},
 				{
 					ProductGroup = 5579D9A8200E5E2C00E8C878 /* Products */;
@@ -1143,11 +1141,11 @@
 			remoteRef = 3DAD3EAE1DF850E9000B6D8A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		551665DE200E4ADA0057F4D5 /* libRNFirebase.a */ = {
+		5515517A216C4FDC00A963BA /* libRNFirebase.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRNFirebase.a;
-			remoteRef = 551665DD200E4ADA0057F4D5 /* PBXContainerItemProxy */;
+			remoteRef = 55155179216C4FDC00A963BA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		5579D9AC200E5E2C00E8C878 /* libRNGoogleSignin.a */ = {
@@ -1532,13 +1530,16 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-testfairy/ios",
-					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = GameBoardTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1563,13 +1564,16 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-testfairy/ios",
-					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = GameBoardTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1601,8 +1605,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-testfairy/ios",
-					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = GameBoard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1642,8 +1646,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-testfairy/ios",
-					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = GameBoard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1684,12 +1688,15 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-testfairy/ios",
-					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = "GameBoard-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1723,12 +1730,15 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-testfairy/ios",
-					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = "GameBoard-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1763,7 +1773,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "GameBoard-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.GameBoard-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1794,7 +1807,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "GameBoard-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.GameBoard-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
