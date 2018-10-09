@@ -38,7 +38,8 @@ platform :ios do
 	  gym(
         scheme: 'GameBoard',
         workspace: './ios/GameBoard.xcworkspace',
-        output_directory: './artifacts/ios'
+        output_directory: './artifacts/ios',
+        clean: true
       )
 	end
 end

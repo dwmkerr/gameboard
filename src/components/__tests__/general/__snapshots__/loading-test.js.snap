@@ -72,9 +72,6 @@ exports[`Loading w/ text renders correctly 1`] = `
     }
   />
   <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
     h1={false}
     h2={false}
     h3={false}

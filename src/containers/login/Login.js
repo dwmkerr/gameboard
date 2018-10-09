@@ -5,7 +5,7 @@ import {
   Platform,
   StyleSheet,
 } from 'react-native';
-import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
+import { GoogleSignin, GoogleSigninButton, statusCodes } from 'react-native-google-signin';
 
 import { AppStyles, AppSizes, AppColors } from '@theme/';
 import log from '@lib/log';
@@ -55,27 +55,33 @@ class Login extends Component {
     //  Get the current user, which might already be available if we are already
     //  logged in. If the user is already signed in, we can store the user and
     //  we're done.
-    const currentUser = await GoogleSignin.currentUserAsync();
-    if (currentUser) {
+    try {
+      const currentUser = await GoogleSignin.signInSilently();
       console.log('User already available!', currentUser);
       await AuthCommands.googleLogin(currentUser.idToken);
       return;
-    }
-
-    //  We don't have a current user, so we need to sign in.
-    try {
-      const user = await GoogleSignin.signIn();
-      console.log('User signed in!', user);
-      await AuthCommands.googleLogin(user.idToken);
-      return;
-    } catch (err) {
-      if (err.code === -5) {
-        //  User cancelled the sign in flow, e.g. by dismissing the browser
-        //  during the OAuth flow. We don't consider this to be an error.
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_REQUIRED) {
+        //  We don't have a current user, so we need to sign in.
+        try {
+          const user = await GoogleSignin.signIn();
+          console.log('User signed in!', user);
+          await AuthCommands.googleLogin(user.idToken);
+          return;
+        } catch (err) {
+          if (err.code === statusCodes.SIGN_IN_CANCELLED) {
+            //  User cancelled the sign in flow, e.g. by dismissing the browser
+            //  during the OAuth flow. We don't consider this to be an error.
+          } else {
+            //  Uh-oh, unknown error during sign in...
+            log.error('Unknown error during sign in', err);
+            throw err;
+          }
+        }
       } else {
         //  Uh-oh, unknown error during sign in...
-        log.error('Unknown error during sign in', err);
-        throw err;
+        log.error('Unknown error during sign in', error);
+        throw error;
       }
     }
   }

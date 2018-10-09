@@ -2,9 +2,6 @@
 
 exports[`Text H1 renders correctly 1`] = `
 <Text
-  accessible={true}
-  allowFontScaling={true}
-  ellipsizeMode="tail"
   h1={true}
   h2={false}
   h3={false}
@@ -34,9 +31,6 @@ exports[`Text H1 renders correctly 1`] = `
 
 exports[`Text H1 with Link renders correctly 1`] = `
 <Text
-  accessible={true}
-  allowFontScaling={true}
-  ellipsizeMode="tail"
   h1={true}
   h2={false}
   h3={false}
@@ -70,9 +64,6 @@ exports[`Text H1 with Link renders correctly 1`] = `
 
 exports[`Text H2 renders correctly 1`] = `
 <Text
-  accessible={true}
-  allowFontScaling={true}
-  ellipsizeMode="tail"
   h1={false}
   h2={true}
   h3={false}
@@ -102,9 +93,6 @@ exports[`Text H2 renders correctly 1`] = `
 
 exports[`Text H3 renders correctly 1`] = `
 <Text
-  accessible={true}
-  allowFontScaling={true}
-  ellipsizeMode="tail"
   h1={false}
   h2={false}
   h3={true}
@@ -134,9 +122,6 @@ exports[`Text H3 renders correctly 1`] = `
 
 exports[`Text H4 renders correctly 1`] = `
 <Text
-  accessible={true}
-  allowFontScaling={true}
-  ellipsizeMode="tail"
   h1={false}
   h2={false}
   h3={false}
@@ -166,9 +151,6 @@ exports[`Text H4 renders correctly 1`] = `
 
 exports[`Text H5 renders correctly 1`] = `
 <Text
-  accessible={true}
-  allowFontScaling={true}
-  ellipsizeMode="tail"
   h1={false}
   h2={false}
   h3={false}
@@ -199,9 +181,6 @@ exports[`Text H5 renders correctly 1`] = `
 
 exports[`Text P renders correctly 1`] = `
 <Text
-  accessible={true}
-  allowFontScaling={true}
-  ellipsizeMode="tail"
   h1={false}
   h2={false}
   h3={false}
@@ -228,9 +207,6 @@ exports[`Text P renders correctly 1`] = `
 
 exports[`Text renders correctly 1`] = `
 <Text
-  accessible={true}
-  allowFontScaling={true}
-  ellipsizeMode="tail"
   h1={false}
   h2={false}
   h3={false}

@@ -151,7 +151,6 @@ dependencies {
         transitive = false
     }
     compile project(':react-native-testfairy')
-    compile project(':react-native-vector-icons')
     compile fileTree(dir: "libs", include: ["*.jar"])
 
     implementation 'com.android.support:appcompat-v7:27.0.0'
