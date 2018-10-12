@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.7.1"></a>
+## [0.7.1](https://github.com/dwmkerr/gameboard/compare/v0.7.0...v0.7.1) (2018-10-12)
+
+
+### Bug Fixes
+
+* **package:** update react-native to version 0.56.1 ([9ae7808](https://github.com/dwmkerr/gameboard/commit/9ae7808))
+* **package:** update react-native-firebase to version 5.0.0 ([c43f481](https://github.com/dwmkerr/gameboard/commit/c43f481))
+* **package:** update react-native-tab-view to version 1.2.0 ([4611aa0](https://github.com/dwmkerr/gameboard/commit/4611aa0))
+* **package:** update react-native-vector-icons to version 6.0.0 ([ab8054e](https://github.com/dwmkerr/gameboard/commit/ab8054e))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/dwmkerr/gameboard/compare/v0.6.1...v0.7.0) (2018-08-30)
 
