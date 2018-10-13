@@ -14,6 +14,8 @@ target 'GameBoard' do
   pod 'Firebase/Firestore'
   pod 'GoogleSignIn'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'GameBoardTests' do
     inherit! :search_paths
     # Pods for testing
