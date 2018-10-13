@@ -39,6 +39,16 @@ platform :ios do
         scheme: 'GameBoard',
         workspace: './ios/GameBoard.xcworkspace',
         output_directory: './artifacts/ios',
+
+        # We cannot run with the new XCode build system, at least until this
+        # is fixed:
+        #   https://github.com/facebook/react-native/pull/21458
+        # Also, Gym doesn't respect the BuildSystemType stored in workspace
+        # settings:
+        #   https://github.com/fastlane/fastlane/issues/12155
+        # So force the legacy build.
+        xcargs: "-UseModernBuildSystem=0",
+
         clean: true
       )
 	end
