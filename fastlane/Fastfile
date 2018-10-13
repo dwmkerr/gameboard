@@ -47,7 +47,8 @@ platform :ios do
         # settings:
         #   https://github.com/fastlane/fastlane/issues/12155
         # So force the legacy build.
-        xcargs: "-UseModernBuildSystem=0",
+        # xcargs: "-UseModernBuildSystem=0",
+        xcargs: "-UseNewBuildSystem=NO",
 
         clean: true
       )
