@@ -4,6 +4,7 @@ module.exports = (api) => {
   return {
     presets: ['module:metro-react-native-babel-preset'],
     plugins: [
+      '@babel/plugin-transform-flow-strip-types',
       '@babel/plugin-transform-runtime',
       '@babel/plugin-proposal-class-properties',
     ].map(require.resolve),
