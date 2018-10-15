@@ -3,3 +3,4 @@ Device ID	Device Name
 fb30ff8e8b0aeb8a181a4d0fd9c1048d0f76b09c	iPhone Sarah
 df9aef680b1766e64a8fee53d72d3b93b5d7c27e	abhishekchak.9@gmail.com iPhone 7
 91080b3f82bafbc28b9cfe7fdd8ecd42e4dc6ea6	snehachopra1988@gmail.com iPhone X
+ddb08ceb8e8cd374e9cdeb52f14d223ffb51f009	abhishekchak.9@gmail.com iPhone 8
