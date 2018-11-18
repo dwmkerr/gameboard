@@ -17,7 +17,6 @@ jobs:
           path: ~/project/artifacts/tests/junit.xml
 
   android:
-    working_directory: ~/project
     # Explicitly limit gradle heap size, otherwise docker might kill the
     # container leading to annoying '137' errors. See:
     # https://discuss.circleci.com/t/circle-ci-v2-and-android-memory-issues/11207/20
@@ -25,13 +24,6 @@ jobs:
       JAVA_OPTS: "-Xms512m -Xmx1024m"
       _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
-
-      # # JVM_OPTS: -Xmx3200m
-      # _JAVA_OPTIONS: "-Xmx2048m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-      # GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
-      # Next thing to try is this..
-      # GRADLE_OPTS: -Xmx1024m -XX:MaxPermSize=1024m
-    environment:
     docker:
       - image: circleci/android:api-27-node8-alpha
     steps:
