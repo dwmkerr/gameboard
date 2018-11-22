@@ -4,6 +4,9 @@ jobs:
     working_directory: ~/project
     docker:
       - image: circleci/node:8
+    environment:
+      # Limit react native workers to the 2 CPUs provided by CircleCI.
+      REACT_NATIVE_MAX_WORKERS: 2
     steps:
       - checkout
       - run: npm install
@@ -20,6 +23,9 @@ jobs:
     # Explicitly limit gradle heap size, otherwise docker might kill the
     # container leading to annoying '137' errors. See:
     # https://discuss.circleci.com/t/circle-ci-v2-and-android-memory-issues/11207/20
+    environment:
+      # Limit react native workers to the 2 CPUs provided by CircleCI.
+      REACT_NATIVE_MAX_WORKERS: 2
     environment:
       JAVA_OPTS: "-Xms512m -Xmx1024m"
       _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
@@ -60,8 +66,12 @@ jobs:
       xcode: "10.0.0"
     working_directory: /Users/distiller/project
     environment:
+      # Limit react native workers to the 2 CPUs provided by CircleCI.
+      REACT_NATIVE_MAX_WORKERS: 2
+      # Set appropriate language.
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
+      # Configure fastlane output directory.
       FL_OUTPUT_DIR: /Users/distiller/project/output
     shell: /bin/bash --login -o pipefail
     steps:
@@ -120,12 +130,16 @@ workflows:
           filters:
             tags:
               only: /.*/
-    # - android:
-        # requires:
-          # - build
+      - android:
+          requires:
+            - build
+          # All branches, all tags.
+          filters:
+            tags:
+              only: /.*/
       - release-alpha:
           requires:
-            # - android
+            - android
             - ios
           filters:
             # No branches, version tags only.
