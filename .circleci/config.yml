@@ -20,6 +20,7 @@ jobs:
           path: ~/project/artifacts/tests/junit.xml
 
   android:
+    resource_class: large
     # Explicitly limit gradle heap size, otherwise docker might kill the
     # container leading to annoying '137' errors. See:
     # https://discuss.circleci.com/t/circle-ci-v2-and-android-memory-issues/11207/20

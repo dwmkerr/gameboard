@@ -40,14 +40,14 @@ class Login extends Component {
       //  Ensure we have Google Play Services available, prompting the user to
       //  install if needed. If we still fail, we cannot recover.
       try {
-        await GoogleSignin.hasPlayServices({ autoResolve: true });
+        await GoogleSignin.hasPlayServices();
       } catch (err) {
         console.log('Play services error', err.code, err.message);
         throw err;
       }
 
       //  Configure Sign In - the fields we want etc.
-      await GoogleSignin.configure({ iosClientId: config.googleSignInIosClientId });
+      await GoogleSignin.configure({ webClientId: config.googleSignInIosClientId });
     }
   }
 

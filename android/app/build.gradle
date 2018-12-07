@@ -95,7 +95,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.2'
 
     defaultConfig {
         applicationId "com.dwmkerr.gameboard"
@@ -146,38 +146,26 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-vector-icons')
     compile project(':react-native-google-signin')
-    compile(project(':react-native-firebase')) {
-        transitive = false
-    }
-    compile project(':react-native-testfairy')
-    compile fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(':react-native-vector-icons')
+    implementation project(':react-native-google-signin')
+    implementation project(':react-native-testfairy')
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation project(':react-native-firebase')
 
     implementation 'com.android.support:appcompat-v7:27.0.0'
-    compile "com.facebook.react:react-native:+"  // From node_modules
+    implementation "com.facebook.react:react-native:+"  // From node_modules
 
-    //  Seems to be required for React Native Google Sign In, see:
-    //  https://github.com/devfd/react-native-google-signin/blob/master/android-guide.md
-    compile(project(":react-native-google-signin")){
-        exclude group: "com.google.android.gms"
-    }
-    compile(project(":react-native-google-analytics-bridge")){
-        exclude group: "com.google.android.gms"
-    }
-
-    //compile 'com.google.android.gms:play-services-auth:11.8.0'
-
-    //  Play services.
-//    implementation "com.google.android.gms:play-services-base:15.0.0"
-//    implementation "com.google.android.gms:play-services-tagmanager:15.0.0"
+    //  React Native Google Signin
+    implementation(project(":react-native-google-signin"))
 
     // Firebase dependencies
-  implementation "com.google.firebase:firebase-firestore:16.0.0"
-//    implementation 'com.google.firebase:firebase-core:15.0.2'
-//    implementation 'com.google.firebase:firebase-database:15.0.0'
-//    implementation 'com.google.firebase:firebase-crash:15.0.2'
-//    implementation 'com.google.firebase:firebase-auth:15.0.0'
+    implementation "com.google.android.gms:play-services-base:16.0.1"
+    implementation "com.google.firebase:firebase-core:16.0.6"
+    implementation "com.google.firebase:firebase-firestore:17.1.2"
+    implementation "com.google.firebase:firebase-auth:16.0.5"
+    implementation "com.google.firebase:firebase-database:16.0.4"
 }
 
 // Run this once to be able to run the application with BUCK

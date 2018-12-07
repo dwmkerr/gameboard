@@ -1,6 +1,4 @@
-git_url "git@github.com:dwmkerr/dwmkerr.git"
-git_branch "fastlane-match"
-clone_branch_directly true
+git_url("git@github.com:dwmkerr/apple-developer-portal.git")
 
 type "development" # The default type, can be: appstore, adhoc, enterprise or development
 
