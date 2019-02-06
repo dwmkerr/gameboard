@@ -35,7 +35,7 @@
     "native-base": "^2.8.1",
     "prop-types": "^15.6.0",
     "react": "^16.6.0-alpha.8af6728",
-    "react-native": "^0.57.3",
+    "react-native": "^0.58.4",
     "react-native-drawer": "^2.5.0",
     "react-native-firebase": "^5.0.0",
     "react-native-google-signin": "^1.0.0-rc6",
