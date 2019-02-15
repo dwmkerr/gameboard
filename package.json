@@ -79,6 +79,6 @@
     "metro-react-native-babel-preset": "^0.48.0",
     "react-test-renderer": "^16.5.2",
     "schedule": "^0.4.0",
-    "standard-version": "^4.4.0"
+    "standard-version": "^5.0.0"
   }
 }
