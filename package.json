@@ -40,7 +40,7 @@
     "react-native-firebase": "^5.0.0",
     "react-native-google-signin": "^1.0.0-rc6",
     "react-native-keyboard-aware-scroll-view": "^0.5.0",
-    "react-native-modal-datetime-picker": "^6.0.0",
+    "react-native-modal-datetime-picker": "^7.0.0",
     "react-native-rename": "^2.2.2",
     "react-native-router-flux": "^4.0.5",
     "react-native-side-menu": "^1.1.3",
