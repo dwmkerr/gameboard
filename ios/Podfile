@@ -7,14 +7,23 @@ target 'GameBoard' do
 
   # Pods for GameBoard
 
-  # RNFirebase Modules.
-  pod 'Firebase/Auth'
-  pod 'Firebase/Core'
-  pod 'Firebase/Database'
-  pod 'Firebase/Firestore'
-  pod 'GoogleSignIn'
+  # Google SignIn - used by react native google sign in.
+  pod 'GoogleSignIn', '~> 4.4.0'
 
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  # RNFirebase modules - it is recommended to pin them to a version. The full set
+  # is here so that we can quickly uncomment as needed.
+  # pod 'Firebase/AdMob', '~> 5.20.1'
+  pod 'Firebase/Auth', '~> 5.20.1'
+  pod 'Firebase/Core', '~> 5.20.1'
+  pod 'Firebase/Database', '~> 5.20.1'
+  # pod 'Firebase/Functions', '~> 5.20.1'
+  # pod 'Firebase/DynamicLinks', '~> 5.20.1'
+  # pod 'Firebase/Firestore', '~> 5.20.1'
+  # pod 'Firebase/Invites', '~> 5.20.1'
+  # pod 'Firebase/Messaging', '~> 5.20.1'
+  # pod 'Firebase/RemoteConfig', '~> 5.20.1'
+  # pod 'Firebase/Storage', '~> 5.20.1'
+  # pod 'Firebase/Performance', '~> 5.20.1'
 
   target 'GameBoardTests' do
     inherit! :search_paths

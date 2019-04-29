@@ -1,8 +1,13 @@
 package com.gameboard;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.testfairy.react.TestFairyPackage;
+import io.invertase.firebase.RNFirebasePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
@@ -32,6 +37,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new VectorIconsPackage(),
+            new TestFairyPackage(),
+            new RNFirebasePackage(),
               new VectorIconsPackage(),
               new RNGoogleSigninPackage(),
               new RNFirebasePackage(),
@@ -58,5 +66,11 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+  }
+
+@Override
+  protected void attachBaseContext(Context base) {
+     super.attachBaseContext(base);
+     MultiDex.install(this);
   }
 }

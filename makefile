@@ -1,5 +1,10 @@
 build: ios android
 
+# Setup a working environment.
+init:
+	sudo gem install bundler
+
+
 ios:
 	npm install
 	bundle install
@@ -19,5 +24,12 @@ upload-alpha:
 circleci_android:
 	circleci config validate -c .circleci/config.yml
 	circleci build --job android
+
+# Clean the React Native cache and just about anything else we can.
+clean:
+	rm -rf ./node_modules
+	rm -rf ./ios/Pods
+	rm -fr $$TMPDIR/react-*
+	npm cache clean
 
 .PHONY: ios android

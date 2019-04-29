@@ -14,6 +14,9 @@ You'll need to setup some tools on your dev machine:
 # Install a Ruby Bundler, so we can grab Ruby dependencies like Fastlane.
 sudo gem install bundler
 bundle update
+
+# Install the React Native CLI
+npm i -g --save react-native-cli
 ```
 
 ### Guide
