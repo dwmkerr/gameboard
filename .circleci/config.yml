@@ -83,6 +83,12 @@ jobs:
       - run:
           name: Set Ruby Version
           command:  echo "ruby-2.4" > ~/.ruby-version
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
       # Use npm 6, which fixes some instablities.
       - run: npm -g i npm@6
       # Not using a workspace here as Node and Yarn versions
