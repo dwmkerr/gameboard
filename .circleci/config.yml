@@ -41,6 +41,14 @@ jobs:
           # at: ~/project
       - run: sudo apt-get update
       - run: sudo apt-get install -y --fix-missing imagemagick 
+      # Install the appropriate bundler version.
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+
       - run: npm install
       - run: BUILD_NUM=$CIRCLE_BUILD_NUM ./scripts/version.sh
       - run: bundle install
