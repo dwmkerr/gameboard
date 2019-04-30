@@ -72,7 +72,7 @@ jobs:
 
   ios:
     macos:
-      xcode: "10.2.1"
+      xcode: "10.2.0"
     working_directory: /Users/distiller/project
     environment:
       # Limit react native workers to the 2 CPUs provided by CircleCI.
