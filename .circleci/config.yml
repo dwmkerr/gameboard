@@ -114,6 +114,8 @@ jobs:
             - ./artifacts/ios
       - store_artifacts:
           path: /Users/distiller/project/artifacts/ios
+      - store_artifacts:
+          path: /Users/distiller/project/output/buildlogs/gym
       - store_test_results:
           path: /Users/distiller/project/output/scan
 
