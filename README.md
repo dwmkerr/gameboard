@@ -6,6 +6,7 @@
 ## Developer Guide
 
 The app is based on [mcnamee/react-native-starter-kit](https://github.com/mcnamee/react-native-starter-kit) v2. v2 is significantly different to the current branch.
+
 ### Setup
 
 You'll need to setup some tools on your dev machine:
@@ -17,6 +18,15 @@ bundle update
 
 # Install the React Native CLI
 npm i -g --save react-native-cli
+```
+
+### Android Studio
+
+The project gradle file relies on some properties which are sensitive. They can be store in the user's `gradle.properties` file:
+
+```sh
+echo GAMEBOARD_RELEASE_KEY_PASSWORD=<password> >> ~/.gradle/gradle.properties
+echo GAMEBOARD_RELEASE_STORE_PASSWORD=<password> >> ~/.gradle/gradle.properties
 ```
 
 ### Guide
