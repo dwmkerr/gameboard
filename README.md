@@ -86,6 +86,13 @@ To create a release, run:
 npm run release
 ```
 
+To deal with Apple Developer 2FA issues, a token will need to be provided to CircleCI as part of the environment. The following variables should be set.
+
+| Environment Variable | Usage                                                       |
+|----------------------|-------------------------------------------------------------|
+| `FASTLANE_SESSION`   | Output of `fastlane spaceauth -u dwmkerr@gmail.com` for 2FA |
+
+
 ## Data Schema
 
 ### Played Game
