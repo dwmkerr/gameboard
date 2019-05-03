@@ -27,12 +27,11 @@ jobs:
     environment:
       # Limit react native workers to the 2 CPUs provided by CircleCI.
       REACT_NATIVE_MAX_WORKERS: 2
-    environment:
       JAVA_OPTS: "-Xms512m -Xmx1024m"
       _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
     docker:
-      - image: circleci/android:api-27-node
+      - image: circleci/android:api-28-node
     steps:
       - checkout
       # - restore_cache:

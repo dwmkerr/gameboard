@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.facebook.react.ReactApplication;
+import com.testfairy.react.TestFairyPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.testfairy.react.TestFairyPackage;
 import io.invertase.firebase.RNFirebasePackage;
@@ -37,6 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new TestFairyPackage(),
             new VectorIconsPackage(),
             new TestFairyPackage(),
             new RNFirebasePackage(),
