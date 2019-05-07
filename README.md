@@ -6,6 +6,7 @@
 ## Developer Guide
 
 The app is based on [mcnamee/react-native-starter-kit](https://github.com/mcnamee/react-native-starter-kit) v2. v2 is significantly different to the current branch.
+
 ### Setup
 
 You'll need to setup some tools on your dev machine:
@@ -73,6 +74,30 @@ To create a release, run:
 npm run release
 ```
 
+### Firebase Functions
+
+To work with the Firebase Functions, you'll need the Firebase CLI. Install the tools and login:
+
+```sh
+npm install -g firebase-tools
+firebase login
+```
+
+You should also check you are working with the correct Firebase project by using the command:
+
+```sh
+firebase list
+```
+
+To update the firebase functions, follow these steps:
+
+```
+cd functions
+npm run lint
+npm run deploy
+```
+
+
 ## Data Schema
 
 ### Played Game
@@ -127,3 +152,4 @@ Beyond this no personal data is used and your Google credentials are never store
 - [ ] Move logout to side menu
 - [ ] Move user account to firestore
 - [ ] Game History auto refresh
+- [ ] Firebase Functions should run in APAC, not us-central.
