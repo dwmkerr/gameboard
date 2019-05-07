@@ -1,8 +1,8 @@
 import TestFairy from 'react-native-testfairy';
 
-function logInternal(msg) {
-  console.log(msg);
-  TestFairy.log(msg);
+function logInternal(...args) {
+  console.log(args);
+  TestFairy.log(args);
 }
 
 module.exports = {

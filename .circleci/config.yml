@@ -4,6 +4,9 @@ jobs:
     working_directory: ~/project
     docker:
       - image: circleci/node:8
+    environment:
+      # Limit react native workers to the 2 CPUs provided by CircleCI.
+      REACT_NATIVE_MAX_WORKERS: 2
     steps:
       - checkout
       - run: npm install
@@ -17,15 +20,18 @@ jobs:
           path: ~/project/artifacts/tests/junit.xml
 
   android:
+    resource_class: large
     # Explicitly limit gradle heap size, otherwise docker might kill the
     # container leading to annoying '137' errors. See:
     # https://discuss.circleci.com/t/circle-ci-v2-and-android-memory-issues/11207/20
     environment:
+      # Limit react native workers to the 2 CPUs provided by CircleCI.
+      REACT_NATIVE_MAX_WORKERS: 2
       JAVA_OPTS: "-Xms512m -Xmx1024m"
       _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
     docker:
-      - image: circleci/android:api-27-node8-alpha
+      - image: circleci/android:api-28-node
     steps:
       - checkout
       # - restore_cache:
@@ -34,6 +40,14 @@ jobs:
           # at: ~/project
       - run: sudo apt-get update
       - run: sudo apt-get install -y --fix-missing imagemagick 
+      # Install the appropriate bundler version.
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+
       - run: npm install
       - run: BUILD_NUM=$CIRCLE_BUILD_NUM ./scripts/version.sh
       - run: bundle install
@@ -57,11 +71,15 @@ jobs:
 
   ios:
     macos:
-      xcode: "10.0.0"
+      xcode: "10.2.0"
     working_directory: /Users/distiller/project
     environment:
+      # Limit react native workers to the 2 CPUs provided by CircleCI.
+      REACT_NATIVE_MAX_WORKERS: 2
+      # Set appropriate language.
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
+      # Configure fastlane output directory.
       FL_OUTPUT_DIR: /Users/distiller/project/output
     shell: /bin/bash --login -o pipefail
     steps:
@@ -72,6 +90,12 @@ jobs:
       - run:
           name: Set Ruby Version
           command:  echo "ruby-2.4" > ~/.ruby-version
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
       # Use npm 6, which fixes some instablities.
       - run: npm -g i npm@6
       # Not using a workspace here as Node and Yarn versions
@@ -89,6 +113,8 @@ jobs:
             - ./artifacts/ios
       - store_artifacts:
           path: /Users/distiller/project/artifacts/ios
+      - store_artifacts:
+          path: /Users/distiller/project/output/buildlogs/gym
       - store_test_results:
           path: /Users/distiller/project/output/scan
 
@@ -120,12 +146,16 @@ workflows:
           filters:
             tags:
               only: /.*/
-    # - android:
-        # requires:
-          # - build
+      - android:
+          requires:
+            - build
+          # All branches, all tags.
+          filters:
+            tags:
+              only: /.*/
       - release-alpha:
           requires:
-            # - android
+            - android
             - ios
           filters:
             # No branches, version tags only.

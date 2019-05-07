@@ -92,7 +92,7 @@ platform :android do
 
     # Move our apk into the artifacts.
     sh("mkdir -p ../artifacts/android")
-    sh("cp ../android/app/build/outputs/apk/app-release.apk ../artifacts/android/GameBoard.apk")
+    sh("cp ../android/app/build/outputs/apk/release/app-release.apk ../artifacts/android/GameBoard.apk")
   end
 end
 

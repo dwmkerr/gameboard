@@ -6,6 +6,7 @@
 ## Developer Guide
 
 The app is based on [mcnamee/react-native-starter-kit](https://github.com/mcnamee/react-native-starter-kit) v2. v2 is significantly different to the current branch.
+
 ### Setup
 
 You'll need to setup some tools on your dev machine:
@@ -14,6 +15,18 @@ You'll need to setup some tools on your dev machine:
 # Install a Ruby Bundler, so we can grab Ruby dependencies like Fastlane.
 sudo gem install bundler
 bundle update
+
+# Install the React Native CLI
+npm i -g --save react-native-cli
+```
+
+### Android Studio
+
+The project gradle file relies on some properties which are sensitive. They can be store in the user's `gradle.properties` file:
+
+```sh
+echo GAMEBOARD_RELEASE_KEY_PASSWORD=<password> >> ~/.gradle/gradle.properties
+echo GAMEBOARD_RELEASE_STORE_PASSWORD=<password> >> ~/.gradle/gradle.properties
 ```
 
 ### Guide
@@ -72,6 +85,13 @@ To create a release, run:
 ```
 npm run release
 ```
+
+To deal with Apple Developer 2FA issues, a token will need to be provided to CircleCI as part of the environment. The following variables should be set.
+
+| Environment Variable | Usage                                                       |
+|----------------------|-------------------------------------------------------------|
+| `FASTLANE_SESSION`   | Output of `fastlane spaceauth -u dwmkerr@gmail.com` for 2FA |
+
 
 ## Data Schema
 
