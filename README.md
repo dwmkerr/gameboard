@@ -92,6 +92,28 @@ To deal with Apple Developer 2FA issues, a token will need to be provided to Cir
 |----------------------|-------------------------------------------------------------|
 | `FASTLANE_SESSION`   | Output of `fastlane spaceauth -u dwmkerr@gmail.com` for 2FA |
 
+### Firebase Functions
+
+To work with the Firebase Functions, you'll need the Firebase CLI. Install the tools and login:
+
+```sh
+npm install -g firebase-tools
+firebase login
+```
+
+You should also check you are working with the correct Firebase project by using the command:
+
+```sh
+firebase list
+```
+
+To update the firebase functions, follow these steps:
+
+```
+cd functions
+npm run lint
+npm run deploy
+```
 
 ## Data Schema
 
@@ -147,3 +169,4 @@ Beyond this no personal data is used and your Google credentials are never store
 - [ ] Move logout to side menu
 - [ ] Move user account to firestore
 - [ ] Game History auto refresh
+- [ ] Firebase Functions should run in APAC, not us-central.
