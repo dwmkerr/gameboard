@@ -30,7 +30,7 @@
   "dependencies": {
     "buffer": "^5.1.0",
     "events": "^3.0.0",
-    "firebase": "^5.5.3",
+    "firebase": "^6.0.0",
     "moment": "^2.20.1",
     "native-base": "^2.8.1",
     "prop-types": "^15.6.0",
