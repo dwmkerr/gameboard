@@ -30,6 +30,8 @@ clean:
 	rm -rf ./node_modules
 	rm -rf ./ios/Pods
 	rm -fr $$TMPDIR/react-*
-	npm cache clean
+	npm cache clean --force
+	rm -rf /tmp/metro-bundler-cache-*
+	rm -rf /tmp/haste-map-react-native-packager-*
 
 .PHONY: ios android
