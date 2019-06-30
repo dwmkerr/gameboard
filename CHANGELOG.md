@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.7.6"></a>
+## [0.7.6](https://github.com/dwmkerr/gameboard/compare/v0.7.5...v0.7.6) (2019-06-30)
+
+
+### Bug Fixes
+
+* **package:** update react-native to version 0.58.4 ([d08b70f](https://github.com/dwmkerr/gameboard/commit/d08b70f))
+* **package:** update react-native-tab-view to version 1.3.0 ([332d996](https://github.com/dwmkerr/gameboard/commit/332d996))
+
+
+
 <a name="0.7.5"></a>
 ## [0.7.5](https://github.com/dwmkerr/gameboard/compare/v0.7.4...v0.7.5) (2018-10-13)
 
