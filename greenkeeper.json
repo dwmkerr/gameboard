@@ -1,0 +1,17 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "functions/package.json",
+        "package.json",
+        "src/components/package.json",
+        "src/components/ui/package.json",
+        "src/containers/package.json",
+        "src/images/package.json",
+        "src/lib/package.json",
+        "src/redux/package.json",
+        "src/theme/package.json"
+      ]
+    }
+  }
+}
