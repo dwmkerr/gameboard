@@ -32,3 +32,7 @@ Data Model
 
 blog it
 
+## Missing Scores
+
+2019-08-12 - Star Realms - Sarah Won Dave Started
+2019-07-29 - Last Will - Winner D (bankrupt) Loser Sarah (2)
