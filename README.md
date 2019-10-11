@@ -169,3 +169,5 @@ Beyond this no personal data is used and your Google credentials are never store
 - [ ] Move user account to firestore
 - [ ] Game History auto refresh
 - [ ] Firebase Functions should run in APAC, not us-central.
+
+2019-08-19 Star Realms Dave won (started, Sarah Lost
