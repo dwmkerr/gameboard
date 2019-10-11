@@ -161,6 +161,7 @@ Beyond this no personal data is used and your Google credentials are never store
 
 ## TODO
 
+- [ ] Build: Don't run potentially expensive iOS/Android build unless it is on master or on a release tag.
 - [ ] Navbar buttons: use nativebase header
 - [X] Edit Game
 - [X] Edit Time
