@@ -155,8 +155,9 @@ workflows:
               only: /.*/
       - release-alpha:
           requires:
-            - android
             - ios
+              # - android
+              # We currenently only require an iOS build.
           filters:
             # No branches, version tags only.
             branches:
