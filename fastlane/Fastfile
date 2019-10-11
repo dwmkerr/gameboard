@@ -39,6 +39,7 @@ platform :ios do
         scheme: 'GameBoard',
         workspace: './ios/GameBoard.xcworkspace',
         output_directory: './artifacts/ios',
+        export_method: 'ad-hoc',
 
         # We cannot run with the new XCode build system, at least until this
         # is fixed:
