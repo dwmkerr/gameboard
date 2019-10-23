@@ -4,7 +4,6 @@ build: ios android
 init:
 	sudo gem install bundler
 
-
 ios:
 	npm install
 	bundle install

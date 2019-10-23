@@ -27,7 +27,11 @@ platform :ios do
     desc 'Fetch certificates and provisioning profiles'
     lane :certificates do
       register_devices(username: USERNAME, devices_file: './fastlane/devices.txt')
-      match(app_identifier: APP_ID, type: 'adhoc', force_for_new_devices: true)
+      match({
+        app_identifier: APP_ID,
+        type: 'adhoc',
+        force_for_new_devices: true
+      })
     end
 
     # Build the app.
@@ -39,17 +43,7 @@ platform :ios do
         scheme: 'GameBoard',
         workspace: './ios/GameBoard.xcworkspace',
         output_directory: './artifacts/ios',
-
-        # We cannot run with the new XCode build system, at least until this
-        # is fixed:
-        #   https://github.com/facebook/react-native/pull/21458
-        # Also, Gym doesn't respect the BuildSystemType stored in workspace
-        # settings:
-        #   https://github.com/fastlane/fastlane/issues/12155
-        # So force the legacy build.
-        # xcargs: "-UseModernBuildSystem=0",
-        xcargs: "-UseNewBuildSystem=NO",
-
+        export_method: 'ad-hoc',
         clean: true
       )
 	end
