@@ -11,11 +11,13 @@ The app is based on [mcnamee/react-native-starter-kit](https://github.com/mcname
 You'll need to setup some tools on your dev machine:
 
 ```bash
-# Install a Ruby Bundler, so we can grab Ruby dependencies like Fastlane.
-sudo gem install bundler
+# I would recommend using RVM to manage versions.
+rvm install ruby-2.4
+gem install bundler
 bundle update
 
-# Install the React Native CLI
+# Use Node 10. Install the React Native CLI
+nvm use 10
 npm i -g --save react-native-cli
 ```
 
