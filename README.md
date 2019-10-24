@@ -163,6 +163,7 @@ Beyond this no personal data is used and your Google credentials are never store
 
 ## TODO
 
+- [ ] Build: Don't run potentially expensive iOS/Android build unless it is on master or on a release tag.
 - [ ] Navbar buttons: use nativebase header
 - [X] Edit Game
 - [X] Edit Time
@@ -173,3 +174,15 @@ Beyond this no personal data is used and your Google credentials are never store
 - [ ] Firebase Functions should run in APAC, not us-central.
 
 2019-08-19 Star Realms Dave won (started, Sarah Lost
+
+# Troubleshooting
+
+```Failures creating jsbundle```
+
+Issues touching `node-gyp/lib/build.js`, `fsevents.o` and others during the `npm install` phase, which lead to:
+
+```
+❌  error: File /Users/distiller/Library/Developer/Xcode/DerivedData/GameBoard-dgysxhpveqohdscwamoxhakwrurq/Build/Intermediates.noindex/ArchiveIntermediates/GameBoard/BuildProductsPath/Release-iphoneos/GameBoard.app/main.jsbundle does not exist.
+```
+
+This seems to be an issue with `node-gyp` and `fsevents` on MacOS. I solved by installing `fsevents` explicitly and run `npm i -f`. Other solutions *might* be to delete and recreate the `package-lock.json` file.
