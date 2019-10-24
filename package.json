@@ -1,6 +1,6 @@
 {
   "name": "gameboard-app",
-  "version": "0.7.8",
+  "version": "0.7.9",
   "license": "MIT",
   "repository": "github:dwmkerr/gameboard",
   "scripts": {
