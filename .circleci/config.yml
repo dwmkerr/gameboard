@@ -12,7 +12,7 @@ jobs:
       # If we have an NPM cache, restore it.
       - restore_cache:
           key: npm-{{ checksum "package.json" }}-{{ arch }}
-      - run: npm install
+      - run: npm install -f # -f for fsevents
       # Cache installed NPM packages.
       - save_cache:
           key: npm-{{ checksum "package.json" }}-{{ arch }}
