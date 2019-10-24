@@ -5,7 +5,7 @@ init:
 	sudo gem install bundler
 
 ios:
-	npm install
+	npm install -f # -f for fsevents (node-gyp)
 	bundle install
 	bundle exec fastlane ios build
 
