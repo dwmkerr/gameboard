@@ -109,7 +109,8 @@ jobs:
       # - run: npm -g i npm@6
 
       # Use Node 8.
-      - run: nvm use 8
+      - run: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
+      - run: nvm install 8 && nvm use 8
 
       # If we have an NPM cache, restore it.
       - restore_cache:
