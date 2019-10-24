@@ -174,3 +174,12 @@ Beyond this no personal data is used and your Google credentials are never store
 - [ ] Firebase Functions should run in APAC, not us-central.
 
 2019-08-19 Star Realms Dave won (started, Sarah Lost
+
+# Troubleshooting
+
+```Failures creating jsbundle```
+
+Issues touching `node-gyp/lib/build.js`, `fsevents.o` and others during the `npm install` phase, which lead to:
+
+```
+❌  error: File /Users/distiller/Library/Developer/Xcode/DerivedData/GameBoard-dgysxhpveqohdscwamoxhakwrurq/Build/Intermediates.noindex/ArchiveIntermediates/GameBoard/BuildProductsPath/Release-iphoneos/GameBoard.app/main.jsbundle does not exist. This must be a bug wit```
