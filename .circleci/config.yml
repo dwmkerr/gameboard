@@ -3,13 +3,21 @@ jobs:
   build:
     working_directory: ~/project
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     environment:
       # Limit react native workers to the 2 CPUs provided by CircleCI.
       REACT_NATIVE_MAX_WORKERS: 2
     steps:
       - checkout
+      # If we have an NPM cache, restore it.
+      - restore_cache:
+          key: npm-{{ checksum "package.json" }}-{{ arch }}
       - run: npm install
+      # Cache installed NPM packages.
+      - save_cache:
+          key: npm-{{ checksum "package.json" }}-{{ arch }}
+          paths:
+            - node_modules
       - run: npm test
       - run: cd ~/project/artifacts/coverage && bash <(curl -s https://codecov.io/bash)
       - persist_to_workspace:
@@ -27,13 +35,14 @@ jobs:
     environment:
       # Limit react native workers to the 2 CPUs provided by CircleCI.
       REACT_NATIVE_MAX_WORKERS: 2
-      JAVA_OPTS: "-Xms512m -Xmx1024m"
-      _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+      _JAVA_OPTIONS: "-Xmx1500m"
     docker:
       - image: circleci/android:api-28-node
     steps:
       - checkout
+      # If we have an NPM cache, restore it.
+      - restore_cache:
+          key: npm-{{ checksum "package.json" }}-{{ arch }}
       # - restore_cache:
           # key: jars-{{ checksum "android/build.gradle" }}-{{ checksum  "android/app/build.gradle" }}
       # - attach_workspace:
@@ -71,7 +80,7 @@ jobs:
 
   ios:
     macos:
-      xcode: "10.2.0"
+      xcode: "11.1.0"
     working_directory: /Users/distiller/project
     environment:
       # Limit react native workers to the 2 CPUs provided by CircleCI.
@@ -81,23 +90,25 @@ jobs:
       LANG: en_US.UTF-8
       # Configure fastlane output directory.
       FL_OUTPUT_DIR: /Users/distiller/project/output
+      # Avoid the time consuming homebrew update.
+      HOMEBREW_NO_AUTO_UPDATE: 1
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout:
           path: /Users/distiller/project
       - attach_workspace:
           at: /Users/distiller/project
-      - run:
-          name: Set Ruby Version
-          command:  echo "ruby-2.4" > ~/.ruby-version
-      - run:
-          name: Configure Bundler
-          command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
-            source $BASH_ENV
-            gem install bundler
+     # - run:
+          # name: Configure Bundler
+          # command: |
+            # echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            # source $BASH_ENV
+            # gem install bundler
       # Use npm 6, which fixes some instablities.
       - run: npm -g i npm@6
+      # If we have an NPM cache, restore it.
+      - restore_cache:
+          key: npm-{{ checksum "package.json" }}-{{ arch }}
       # Not using a workspace here as Node and Yarn versions
       # differ between the macOS image and the Docker containers above.
       - run: brew install imagemagick jq
@@ -155,8 +166,9 @@ workflows:
               only: /.*/
       - release-alpha:
           requires:
-            - android
             - ios
+              # - android
+              # We currenently only require an iOS build.
           filters:
             # No branches, version tags only.
             branches:
