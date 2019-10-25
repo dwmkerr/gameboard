@@ -1,4 +1,6 @@
 extends: airbnb
+env:
+  jest: true
 globals:
   fetch: false
 parser: babel-eslint

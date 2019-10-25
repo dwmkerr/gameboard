@@ -52,16 +52,10 @@ async function completeTrackScore(store) {
   //  Get the tracked score from redux.
   const trackedGame = store.getState().trackScore;
 
-  //  Create the map of player ids, only needed to support querying for firebase.
-  const playerIds = trackedGame.players.reduce((acc, val) => ({
-    ...acc,
-    [val.uid]: true,
-  }), {});
-
   //  Add the game.
   const playedGame = {
     ...trackedGame,
-    playerIds,
+    playerIds: trackedGame.players.map(p => p.uid),
     scorerUid: uid,
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
   };
