@@ -49,7 +49,7 @@ function renderStarter(players) {
 //  TODO: extract functions, unit tests for dates.
 const renderTimePlayed = (timePlayed) => {
   if (!timePlayed) return null;
-  const time = moment(timePlayed);
+  const time = moment(timePlayed.toDate());
   const now = moment();
   const timeString = (t) => {
     const days = now.diff(t, 'days');
