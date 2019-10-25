@@ -2,11 +2,34 @@
 
 [![CircleCI](https://circleci.com/gh/dwmkerr/gameboard.svg?style=shield)](https://circleci.com/gh/dwmkerr/gameboard) [![codecov](https://codecov.io/gh/dwmkerr/gameboard/branch/master/graph/badge.svg)](https://codecov.io/gh/dwmkerr/gameboard) [![dependencies Status](https://david-dm.org/dwmkerr/gameboard/status.svg)](https://david-dm.org/dwmkerr/gameboard) [![devDependencies Status](https://david-dm.org/dwmkerr/gameboard/dev-status.svg)](https://david-dm.org/dwmkerr/gameboard?type=dev) [![Greenkeeper badge](https://badges.greenkeeper.io/dwmkerr/gameboard.svg)](https://greenkeeper.io/) [![GuardRails badge](https://badges.production.guardrails.io/dwmkerr/gameboard.svg)](https://www.guardrails.io)
 
-## Developer Guide
+
+<!-- vim-markdown-toc GFM -->
+
+* [Developer Guide](#developer-guide)
+    * [Setup](#setup)
+    * [Android Studio](#android-studio)
+    * [Guide](#guide)
+        * [Containers](#containers)
+        * [Navigation](#navigation)
+    * [Credentials](#credentials)
+    * [CI/CD](#cicd)
+    * [Firebase Functions](#firebase-functions)
+* [Data Schema](#data-schema)
+    * [Played Game](#played-game)
+* [Helper Functions](#helper-functions)
+* [Social Accounts](#social-accounts)
+    * [Google](#google)
+    * [Privacy](#privacy)
+    * [TODO](#todo)
+* [Troubleshooting](#troubleshooting)
+
+<!-- vim-markdown-toc -->
+
+# Developer Guide
 
 The app is based on [mcnamee/react-native-starter-kit](https://github.com/mcnamee/react-native-starter-kit) v2. v2 is significantly different to the current branch.
 
-### Setup
+## Setup
 
 You'll need to setup some tools on your dev machine:
 
@@ -21,7 +44,7 @@ nvm use 10
 npm i -g --save react-native-cli
 ```
 
-### Android Studio
+## Android Studio
 
 The project gradle file relies on some properties which are sensitive. They can be store in the user's `gradle.properties` file:
 
@@ -30,7 +53,7 @@ echo GAMEBOARD_RELEASE_KEY_PASSWORD=<password> >> ~/.gradle/gradle.properties
 echo GAMEBOARD_RELEASE_STORE_PASSWORD=<password> >> ~/.gradle/gradle.properties
 ```
 
-### Guide
+## Guide
 
 The main application lifecycle, login state and connected state is managed in the `App` component.
 
@@ -42,7 +65,7 @@ The app interacts with Firebase in the following way:
 
 This makes interfacing with the data very easy. Just interact with Firebase, the appropriate collections will be updated and the store will change as a result of that.
 
-#### Containers
+### Containers
 
 Each of the components in `./src/containers` is essentially a screen. It will often take redux state, and often fire off commands.
 
@@ -64,18 +87,18 @@ Scenes will normally need to be provided with some kind of handler to deal with 
 
 In the example above we can see that we can programatically navigate to a scene and then deal with the result in our own way.
 
-#### Navigation
+### Navigation
 
 - Handled via [`react-native-router-flux`](https://github.com/aksonov/react-native-router-flux)
 - All routes are defined in [`Router.js`](./src/Router.js)
 
-### Credentials
+## Credentials
 
 Most sensitive data is stored in: `git@github.com:dwmkerr/dwmkerr.git` in the `fastlane-match` branch. This branch contains the Android Keystore, Provisioning Profiles, Certs etc.
 
 Fastlane certs keyphrase: `gameboard`
 
-### CI/CD
+## CI/CD
 
 Builds are run on CircleCI 2.
 
@@ -93,7 +116,7 @@ To deal with Apple Developer 2FA issues, a token will need to be provided to Cir
 |----------------------|-------------------------------------------------------------|
 | `FASTLANE_SESSION`   | Output of `fastlane spaceauth -u dwmkerr@gmail.com` for 2FA |
 
-### Firebase Functions
+## Firebase Functions
 
 To work with the Firebase Functions, you'll need the Firebase CLI. Install the tools and login:
 
@@ -116,9 +139,9 @@ npm run lint
 npm run deploy
 ```
 
-## Data Schema
+# Data Schema
 
-### Played Game
+## Played Game
 
 ```
 {
@@ -141,7 +164,11 @@ npm run deploy
 }
 ```
 
-## Social Accounts
+# Helper Functions
+
+Helper functions are generally deployed under `api/admin`. These have so far been used to convert data. A more robust method is needed for the future.
+
+# Social Accounts
 
 - Twitter: https://apps.twitter.com/app/14632367
 - Google:  
