@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.7.12"></a>
+## [0.7.12](https://github.com/dwmkerr/gameboard/compare/v0.7.11...v0.7.12) (2019-10-25)
+
+
+### Bug Fixes
+
+* **dashboard:** correctly show the date played ([48770e5](https://github.com/dwmkerr/gameboard/commit/48770e5))
+
+
+
 <a name="0.7.11"></a>
 ## [0.7.11](https://github.com/dwmkerr/gameboard/compare/v0.7.7...v0.7.11) (2019-10-24)
 
