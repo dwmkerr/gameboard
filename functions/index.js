@@ -88,6 +88,7 @@ app.get('/games/:id', getGame);
 app.get('/games/:id/thumbnail', getGameThumbnail);
 app.get('/search-users', apis.searchUsers);
 app.get('/admin/backup', apis.backup);
+app.get('/admin/convert-player-ids', apis.convertPlayerIds);
 app.get('/admin/update-created-at', apis.updateCreatedAt);
 app.get('/admin/update-player-ids', apis.updatePlayerIds);
 // app.get('/:id', (req, res) => res.send(Widgets.getById(req.params.id)));

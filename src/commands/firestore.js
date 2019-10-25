@@ -44,9 +44,9 @@ export function startWatchingFirestore(user, dispatch) {
   const gamesReady = new Promise((resolve) => {
     const unsubscribe = firebase.firestore()
       .collection('played-games')
-      .where(`playerIds.${user.uid}`, '==', true)
-    // .orderBy('createdAt', 'desc')
-    // .limit(20)
+      .where('playerIds', 'array-contains', user.uid)
+      .orderBy('createdAt', 'desc')
+      .limit(20)
       .onSnapshot((snapshot) => {
         const playedGames = snapshotToArray(snapshot);
         playedGames.sort((a, b) => b.createdAt - a.createdAt);

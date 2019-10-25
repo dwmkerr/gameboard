@@ -1,4 +1,3 @@
-import moment from 'moment';
 import React from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
@@ -13,6 +12,7 @@ import {
 
 import ThumbnailLink from '@components/ui/ThumbnailLink';
 import config from '../../config';
+import formatTimePlayed from '../../lib/time-played';
 
 function renderWinners(players) {
   const winners = players.filter(p => p.rank === 1).map(p => p.name);
@@ -46,24 +46,6 @@ function renderStarter(players) {
   }
 }
 
-//  TODO: extract functions, unit tests for dates.
-const renderTimePlayed = (timePlayed) => {
-  if (!timePlayed) return null;
-  const time = moment(timePlayed.toDate());
-  const now = moment();
-  const timeString = (t) => {
-    const days = now.diff(t, 'days');
-    const weeks = now.diff(t, 'weeks');
-    if (days === 0) return t.format('LT'); // e.g. 8:30 PM
-    if (days === -1) return 'Yesterday';
-    if (weeks === 0) return t.format('ddd'); // e.g. Tue
-    return t.format('D/M/YY'); // e.g 2016, Feb 3, 8:30 PM
-  };
-  return (
-    <Text style={{ alignSelf: 'flex-start', paddingRight: 8 }} note>{timeString(time)}</Text>
-  );
-};
-
 const renderDebugNotes = (playedGame) => {
   const missingGameId = !playedGame.game.id;
   const missingPlayerIds = playedGame.players.some(p => !p.uid);
@@ -77,7 +59,7 @@ const renderDebugNotes = (playedGame) => {
   );
 };
 
-const renderRight = timePlayed => (
+const renderRight = time => (
   <View style={{
     flexGrow: 1,
     flexDirection: 'row',
@@ -85,7 +67,7 @@ const renderRight = timePlayed => (
     alignItems: 'center',
   }}
   >
-    { renderTimePlayed(timePlayed)}
+    <Text style={{ alignSelf: 'flex-start', paddingRight: 8 }} note>{formatTimePlayed(time.toDate())}</Text>
     <Icon name="arrow-forward" />
   </View>
 );
@@ -114,7 +96,7 @@ const RecentGame = (props) => {
         {renderDebugNotes(props)}
       </Body>
       <Right>
-        {renderRight(timePlayed)}
+        {!!timePlayed && renderRight(timePlayed)}
       </Right>
     </ListItem>
   );

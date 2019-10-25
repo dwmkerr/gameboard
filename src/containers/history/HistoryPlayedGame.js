@@ -110,9 +110,9 @@ class HistoryPlayedGame extends Component {
       //  We're going to update the document. First, remove the old
       //  player uid from the playerIds, then add the new uid to the playerIds,
       //  then update the player details.
-      const newPlayerIds = { ...playedGame.playerIds };
-      newPlayerIds[player.uid || player.id] = undefined;
-      newPlayerIds[selectedPlayer.uid] = true;
+      const newPlayerIds = playedGame.playerIds.filter(p => p !== player);
+      newPlayerIds.push(selectedPlayer.uid);
+
       const newPlayers = playedGame.players.filter(p => p !== player);
       newPlayers.push({
         ...player, // original fields, like rank and score and name...
