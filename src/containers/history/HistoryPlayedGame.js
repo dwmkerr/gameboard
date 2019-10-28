@@ -154,12 +154,17 @@ class HistoryPlayedGame extends Component {
     const {
       enableDelete,
       playedGame: {
+        createdAt,
         key,
         game,
-        createdAt,
         players,
       },
     } = this.props;
+
+    const { showDatePicker } = this.state;
+
+    //  The 'createdAt' time is a Firebase timestamp. Switch it to a JS Date.
+    const date = createdAt.toDate();
 
     //  Rank order the players.
     const rankedPlayers = rankings.rankPlayers(players);
@@ -169,7 +174,7 @@ class HistoryPlayedGame extends Component {
         <H1>{game.name}</H1>
         <Spacer size={10} />
         { this.renderDetail({ label: 'Game', value: game.name, onEdit: () => { this.editGame(key); } }) }
-        { this.renderDetail({ label: 'Date', value: moment(createdAt).format('LLL'), onEdit: () => { this.editDate(); } }) }
+        { this.renderDetail({ label: 'Date', value: moment(date).format('LLL'), onEdit: () => { this.editDate(); } }) }
         <Spacer size={10} />
         <List>
           { rankedPlayers.map(p => (
@@ -195,16 +200,18 @@ class HistoryPlayedGame extends Component {
 
         <Spacer size={30} />
         { enableDelete &&
-          <Button block danger onPress={() => this.deleteGame(key)}>
-            <Icon name="trash" />
-            <Text>Delete</Text>
-          </Button>
+            (
+              <Button block danger onPress={() => this.deleteGame(key)}>
+                <Icon name="trash" />
+                <Text>Delete</Text>
+              </Button>
+            )
         }
 
         <DateTimePicker
           mode="datetime"
-          date={createdAt}
-          isVisible={this.state.showDatePicker}
+          date={date}
+          isVisible={showDatePicker}
           onConfirm={this.onSetDate}
           onCancel={() => { this.setState(s => ({ ...s, showDatePicker: false })); }}
         />

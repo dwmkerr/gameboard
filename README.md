@@ -20,8 +20,8 @@
 * [Social Accounts](#social-accounts)
     * [Google](#google)
     * [Privacy](#privacy)
-    * [TODO](#todo)
 * [Troubleshooting](#troubleshooting)
+* [TODO](#todo)
 
 <!-- vim-markdown-toc -->
 
@@ -188,20 +188,6 @@ This is a hobby project and I make no assuranances about privacy and security. H
 
 Beyond this no personal data is used and your Google credentials are never stored (they are passed directly to google, using OAuth). In theory there should be very little data the app or server has to potentially be lost or stolen, but again, no assurances are offered.
 
-## TODO
-
-- [ ] Build: Don't run potentially expensive iOS/Android build unless it is on master or on a release tag.
-- [ ] Navbar buttons: use nativebase header
-- [X] Edit Game
-- [X] Edit Time
-- [ ] Format Game History Page
-- [ ] Move logout to side menu
-- [ ] Move user account to firestore
-- [ ] Game History auto refresh
-- [ ] Firebase Functions should run in APAC, not us-central.
-
-2019-08-19 Star Realms Dave won (started, Sarah Lost
-
 # Troubleshooting
 
 ```Failures creating jsbundle```
@@ -213,3 +199,16 @@ Issues touching `node-gyp/lib/build.js`, `fsevents.o` and others during the `npm
 ```
 
 This seems to be an issue with `node-gyp` and `fsevents` on MacOS. I solved by installing `fsevents` explicitly and run `npm i -f`. Other solutions *might* be to delete and recreate the `package-lock.json` file.
+
+# TODO
+
+- [ ] Build: Don't run potentially expensive iOS/Android build unless it is on master or on a release tag.
+- [ ] Navbar buttons: use nativebase header
+- [X] Edit Game
+- [X] Edit Time
+- [ ] Format Game History Page
+- [ ] Move logout to side menu
+- [ ] Move user account to firestore
+- [ ] Game History auto refresh
+- [ ] Firebase Functions should run in APAC, not us-central.
+
